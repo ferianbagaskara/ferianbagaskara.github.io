@@ -7,7 +7,6 @@ import Certifications from '../components/Certifications.astro';
 import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
-import Skills from '../components/Skills.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../lib/site';
 const { settings, profile, contact, certifications, experience, projects } = site;
@@ -21,7 +20,6 @@ const hide = settings.hidePlaceholders;
     <Experience experience={experience} />
     <Projects projects={projects} />
     <Certifications certifications={certifications} hide={hide} />
-    <Skills skills={site.skills} />
     <Contact contact={contact} availability={profile.availability} cvUrl={profile.cvUrl} hide={hide} />
     <Footer slot="footer" name={profile.name} headline={profile.headline} />
   </DocumentationLayout>

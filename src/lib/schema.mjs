@@ -57,8 +57,6 @@ export const siteSchema = z.object({
   profile: z.object({
     name: text(60),
     headline: text(80),
-    heroTitle: optionalText(60),
-    perspective: optionalText(120),
     tagline: text(320),
     availability: text(60),
     location: optionalText(40),

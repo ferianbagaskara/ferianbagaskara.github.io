@@ -96,44 +96,42 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .hero-draft-status { margin-top: .75rem; color: var(--muted); font-size: .9375rem; }
 .documentation .hero .ctas > a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 /* Keep existing components inside the single readable content column. */
-.documentation :is(.certs, .tracks, .proj.has-diagram, .contact-card) {
+.documentation :is(.tracks, .proj.has-diagram, .contact-card) {
   grid-template-columns: minmax(0, 1fr);
 }
-.documentation .certs { display: block; }
+/* Credential cards retain their fields and verification footer in a compact grid. */
+.documentation .certs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .documentation .cert {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .875rem 0;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
 }
-.documentation .cert:first-child { border-top: 1px solid var(--line); }
 .documentation .cert h3 { font-size: 1rem; font-weight: 600; line-height: 1.45; }
-.documentation .cert .issuer { margin-top: .125rem; font-size: .9375rem; }
+.documentation .cert .issuer { margin-top: .25rem; font-size: .875rem; line-height: 1.5; }
+.documentation .cert .dates { gap: .75rem; margin-top: 1rem; }
+.documentation .cert .dates dt { font: 500 .75rem/1.5 var(--sans); text-transform: none; letter-spacing: normal; }
+.documentation .cert .dates dd { font: 500 .8125rem/1.5 var(--sans); margin-top: .25rem; }
+.documentation .cert-meta { margin-block: 1rem; }
 .documentation .cert .kind {
-  flex: none;
-  border: 0;
-  padding: 0;
-  border-radius: 0;
-  font: 400 .875rem/1.4 var(--sans);
+  display: inline-block;
+  padding: .25rem .5rem;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  font: 400 .75rem/1.4 var(--sans);
   letter-spacing: 0;
   text-transform: none;
-  color: var(--muted);
-  text-align: right;
-}
-.documentation .cert.micro .kind {
-  border: 1px dashed var(--line-2);
-  border-radius: 4px;
-  padding: .25rem .5rem;
   color: var(--ink-2);
 }
-.documentation .cert.micro { border-style: solid; border-color: var(--line); background: transparent; }
+.documentation .cert.micro .kind { border-style: dashed; color: var(--muted); }
+.documentation .cert.micro { border-style: dashed; border-color: var(--line-2); background: var(--bg-soft); }
 .documentation .cert.micro h3 { font-weight: 600; color: var(--ink); }
+.documentation .cert .foot { padding-top: .75rem; }
+.documentation .cert .verify { font-size: .8125rem; line-height: 1.5; }
 .documentation .track + .track {
   border-left: 0;
   border-top: 1px solid var(--line);
@@ -227,7 +225,7 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .project-details figcaption { font: 400 .9375rem/1.5 var(--sans); text-align: left; }
 
 /* Reference-led refresh: a quiet blue sidebar and a more expressive overview. */
-.documentation { --ink: #0c2448; --ink-2: #33486a; --muted: #586b86; }
+.documentation { --ink: #0c2448; --ink-2: #33486a; --muted: #586b86; --line: #e2e8f0; --line-2: #cbd5e3; }
 .documentation-shell { max-width: 86rem; }
 .documentation main { max-width: none; }
 .documentation h1, .documentation h2 { font-weight: 600; }
@@ -237,7 +235,6 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .overview-intro h1 { font-size: clamp(2.2rem, 4vw, 3.3rem); letter-spacing: -.035em; }
 .documentation .hero .headline { font: 400 clamp(1.05rem, 1.7vw, 1.5rem)/1.4 var(--serif); margin-top: .65rem; }
 .documentation .hero .tagline { max-width: 65ch; font-size: 1rem; line-height: 1.65; margin-top: 1rem; }
-.documentation .overview-note { display: none; }
 .documentation .overview-meta { display: grid; gap: 1.5rem; margin-top: 2rem; }
 .documentation .overview-location, .documentation .overview-credentials { display: flex; align-items: flex-start; gap: 1rem; font-size: .8125rem; line-height: 1.6; }
 .documentation .overview-location svg, .documentation .overview-credentials svg { flex: none; margin-top: .1rem; }
@@ -253,8 +250,6 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .overview-focus svg { color: var(--accent); margin-bottom: .6rem; }
 .documentation .overview-focus h3 { font-size: .875rem; line-height: 1.4; font-weight: 600; }
 .documentation .overview-focus li p { font-size: .8125rem; line-height: 1.55; margin-top: .4rem; color: var(--muted); }
-.documentation .overview-perspective { max-width: none; padding: 1.2rem 1.5rem; margin-top: .75rem; border: 1px solid var(--line); border-radius: 8px; color: var(--ink-2); font: italic 1.125rem/1.55 var(--serif); }
-.documentation .overview-perspective::after { content: ''; display: block; width: 2rem; height: 2px; background: var(--accent); margin-top: .8rem; }
 .documentation .overview-actions { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; align-items: center; margin-top: 1.3rem; }
 .documentation .overview-actions a { display: inline-flex; gap: .6rem; align-items: center; min-height: 44px; font-size: .875rem; text-decoration: none; }
 .documentation .overview-actions .overview-contact { color: #fff; background: var(--ink); padding: .6rem 1rem; border-radius: 5px; }
@@ -269,12 +264,16 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .mobile-menu-label { display: flex; align-items: center; gap: .4rem; font-size: .8125rem; color: var(--accent); }
 .documentation .proj { padding: 1.3rem; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfe; }
 .documentation .proj + .proj { padding-top: 1.3rem; }
+.documentation .projects { gap: 1rem; }
+.documentation .proj dd { margin-bottom: 0; }
 .documentation .proj dt { font-size: .8125rem; color: var(--muted); }
 .documentation .proj dd { font-size: .9375rem; }
 .documentation .proj .badge { padding: .25rem .55rem; background: #eef3fa; font-size: .75rem; }
-.documentation .experience-tracks { padding-left: 1.3rem; border-left: 2px solid #dce7f9; }
-.documentation .skills { grid-template-columns: 1fr; }
-.documentation .skill { border-radius: 8px; padding: 1.1rem; }
+.documentation .experience-tracks { padding-left: 1.25rem; border-left: 2px solid #dce7f9; }
+.documentation .experience-track .experience-responsibilities { font-size: .9375rem; }
+.documentation .experience-tracks .experience-track + .experience-track { margin-top: 1.25rem; }
+.documentation .contact-pending, .documentation .contact-placeholders, .documentation .contact-help, .documentation .copy-status { font-size: .9375rem; }
+.documentation .overview-contact:hover, .documentation .sidebar-cv-link:hover { background: var(--ink-2); }
 @media (min-width: 60rem) {
   .documentation { padding: .75rem; background: #f1f4f8; }
   .documentation-shell { grid-template-columns: 15rem minmax(0, 1fr); gap: 0; padding: 0; border: 1px solid #e8edf3; border-radius: 12px; background: white; box-shadow: 0 5px 25px #0c244806; }
@@ -293,12 +292,9 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
   .sidebar-location svg { flex: none; margin-top: .1rem; }
   .sidebar-location p + p { margin-top: .3rem; }
   .documentation #overview { padding-top: 2rem; }
-  .documentation .skills { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (min-width: 72rem) {
-  .documentation .overview-intro { grid-template-columns: minmax(0, 1fr) 9rem; gap: 2rem; }
-  .documentation .overview-note { display: block; border-left: 1px solid var(--line); padding-left: 1.5rem; color: var(--ink-2); }
-  .documentation .overview-note p { font: 400 .9375rem/1.7 var(--serif); margin-top: .75rem; }
+  .documentation .certs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .documentation .overview-meta { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
   .documentation .overview-credentials { border-left: 1px solid var(--line); padding-left: 2rem; }
   .documentation .overview-focus ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }

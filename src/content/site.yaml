@@ -16,13 +16,8 @@ settings:
 
 profile:
   name: Ferian Bagaskara
-  heroTitle: Build. Connect. Operate.
-  perspective: Different environments. One bigger perspective.
   headline: Cloud Network Engineer | Hybrid & Multi-Cloud Networking
-  tagline: >-
-    I work on networks that connect on-prem data centers, AWS, and Google Cloud.
-    My work includes hybrid cloud networking and an on-prem network observability
-    pipeline built with Python and Grafana.
+  tagline: Hybrid and multi-cloud networking across on-prem, AWS, and GCP.
   availability: Open to remote and international roles
   location: Based in Indonesia
   headshot: ""   # No portrait in design C; generated placeholder is archived outside public/.
@@ -75,7 +70,7 @@ certifications:
 
 experience:
   - role: Network & Cloud Network Engineer
-    employer: An Indonesian bank
+    employer: A top-tier Indonesian bank
     period: 2022–present
     # Each track may have up to 5 confirmed responsibilities (240 characters each).
     # Leave responsibilities absent or [] until personal responsibilities are confirmed.
@@ -86,7 +81,7 @@ experience:
         # responsibilities:
         #   - "[responsibility]"
       - title: AWS and Google Cloud network architecture and engineering
-        period: In parallel since 2025
+        period: 2025-present
 
 projects:
   - title: Hybrid multi-cloud banking network

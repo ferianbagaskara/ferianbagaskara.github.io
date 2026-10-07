@@ -1,5 +1,5 @@
 ---
-// One compact row in the Certifications list.
+// One credential card in the Certifications grid.
 import type { Cert } from '../lib/site';
 interface Props { cert: Cert }
 const { cert: c } = Astro.props;
@@ -9,8 +9,15 @@ const micro = c.kind === 'microcredential';
   <div class="cert-copy">
     <h3>{c.name}</h3>
     <p class="issuer">{c.issuer}</p>
-    {c.datesConfirmed && <p class="issuer">Issued {c.issued} · Expires {c.expires}</p>}
-    {c.credlyUrl && <a href={c.credlyUrl}>Verify credential</a>}
+    <dl class="dates">
+      <div><dt>Issued</dt><dd>{c.datesConfirmed ? c.issued : 'Pending confirmation'}</dd></div>
+      <div><dt>Expires</dt><dd>{c.datesConfirmed ? c.expires : 'Pending confirmation'}</dd></div>
+    </dl>
   </div>
-  <span class="kind">{micro ? 'Microcredential' : 'Certification'}</span>
+  <div class="cert-meta"><span class="kind">{micro ? 'Microcredential' : 'Certification'}</span></div>
+  <div class="foot">
+    {c.credlyUrl
+      ? <a class="verify" href={c.credlyUrl} aria-label={`Verify ${c.name} on Credly`} target="_blank" rel="noreferrer">Verify on Credly</a>
+      : <span class="verify">Verify on Credly · Coming soon</span>}
+  </div>
 </li>

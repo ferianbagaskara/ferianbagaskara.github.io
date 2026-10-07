@@ -80,23 +80,22 @@ main > section + section{border-top:1px solid var(--line)}
 h2{font-size:34px;font-weight:700;letter-spacing:-.025em;line-height:1.15}
 
 /* certs */
-.certs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.cert{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--bg)}
-.cert .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.cert .code{width:42px;height:42px}
+.certs{display:grid;grid-template-columns:1fr;gap:18px}
+.cert{display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--bg)}
+.cert-meta{margin-top:14px}
 .kind{font:600 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line-2);padding:5px 7px;border-radius:5px}
 .cert.micro .kind{border-style:dashed;border-color:var(--line-3);color:var(--muted)}
 .cert h3{font-size:16px;font-weight:650;line-height:1.35}
 .cert.micro h3{font-weight:600;color:var(--ink-2)}
 .cert .issuer{font-size:13.5px;color:var(--muted);margin-top:6px}
-.dates{display:flex;gap:22px;margin:18px 0}
+.dates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0 0}
 .dates dt{font:600 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.dates dd{font:600 13.5px/1 var(--mono);color:var(--ink);margin-top:6px}
+.dates dd{font:600 13px/1.4 var(--mono);color:var(--ink);margin-top:6px;overflow-wrap:anywhere}
 .cert .foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
 .cert.micro .foot{border-top:1px dashed var(--line-2)}
 .verify{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none}
-.verify:hover{text-decoration:underline}
-span.verify{color:var(--muted);min-height:32px;cursor:not-allowed}
+a.verify:hover{text-decoration:underline}
+span.verify{color:var(--muted);min-height:32px}
 
 /* experience */
 .employer{border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -172,10 +171,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;font-size:13px;
   .menu-btn{display:grid}
   .hero.has-photo .wrap{grid-template-columns:1fr 160px;gap:32px}
   .headshot{width:160px;height:160px}
-  .certs{grid-template-columns:1fr 1fr}
   .proj.has-diagram{grid-template-columns:1fr}
   .proj figure{border-left:0;border-bottom:1px solid var(--line);order:-1}
 }
+@media (min-width:1152px){.certs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:767.98px){
   .wrap{padding:0 20px}
   nav.top{height:60px}
@@ -197,7 +196,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;font-size:13px;
   .kind{font-size:10px;padding:4px 5px;letter-spacing:.04em}
   .cert h3{font-size:14.5px}
   .cert .issuer{font-size:12.5px}
-  .dates{flex-direction:column;gap:10px;margin-top:14px}
+  .dates{gap:10px;margin-top:14px}
   .verify{flex-wrap:wrap;gap:6px;font-size:13px}
   .emp-head{flex-direction:column;align-items:flex-start;padding:20px}
   .tracks{grid-template-columns:1fr}

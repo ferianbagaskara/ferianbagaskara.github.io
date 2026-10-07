@@ -3,7 +3,7 @@
 import Icon from './Icon.astro';
 interface Props { name: string; base?: string }
 const { name, base = '' } = Astro.props; // base = "/" on the 404 page so links point back home
-const nav = [['certifications', 'Certifications'], ['experience', 'Experience'], ['projects', 'Projects'], ['skills', 'Skills'], ['contact', 'Contact']];
+const nav = [['certifications', 'Certifications'], ['experience', 'Experience'], ['projects', 'Projects'], ['contact', 'Contact']];
 ---
 <header class="site-head">
   <div class="wrap">

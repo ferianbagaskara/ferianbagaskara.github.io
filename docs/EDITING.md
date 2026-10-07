@@ -33,8 +33,9 @@ those assets manually using the checklist below.
    `ALLOW_PLACEHOLDER_SITEURL=1 npm test`. Other guards still apply; a passing
    check is not approval of CV/OG facts or publication.
 6. Commit the YAML, reviewed assets, and changed references together. GitHub
-   Actions runs CI on pull requests and pushes to `main`; it does not deploy.
-   Publication and its final data/asset review remain separate tasks.
+   Actions runs CI on pull requests. A push to `main` runs CI and, if it passes,
+   deploys `dist/` to GitHub Pages. Check the workflow result and live page after
+   a publication push; a local check does not publish the site.
 
 ### Assets and references to review
 
@@ -82,23 +83,24 @@ Email actions stay absent until the email is confirmed.
 | --- | --- | --- |
 | Email | `contact.emailUser`, `contact.emailDomain`, `contact.emailConfirmed` | Keep confirmation false until Ferian supplies the real address. Set both parts and confirmation together only after review. The schema defaults confirmation to false when omitted. |
 | LinkedIn | `contact.linkedinUrl` | Confirmed full LinkedIn profile URL; otherwise `""`. |
-| Credly badges | `certifications[].credlyUrl` | Confirmed badge URL; otherwise `""`. |
-| Credential dates | `certifications[].datesConfirmed`, `issued`, `expires` | Keep confirmation false for source reference dates; set true only after verifying both dates. Design C has no hero credential line; legacy `featured` / `short` do not affect it. |
+| Credly badges | `certifications[].credlyUrl` | Ask Ferian for the direct badge URL for that credential and verify it identifies the matching badge. Until confirmed, keep `""`; do not create a placeholder link. |
+| Credential dates | `certifications[].datesConfirmed`, `issued`, `expires` | Confirm Issued and whether an Expires date exists for each credential with Ferian. Keep `datesConfirmed: false` and show pending text while either fact is unknown. Enter confirmed dates as `Mon YYYY`; represent no expiry only after confirmation, without inventing a date or claiming active status. If a confirmed credential has no expiry, update the schema and card display to represent that state explicitly. Overview still uses `featured` / `short` for a brief credential summary; full credential details appear in the cards below. |
 | OG metadata | `settings.ogImageConfirmed` | Keep false for stale/draft artwork; set true only after manual review against current YAML. A confirmed site URL is also required. |
 | CV (PDF) | `profile.cvUrl` | `""` until the final confirmed PDF is in `public/cv/`, then `/cv/<final-file>.pdf`. |
 | Headshot | `profile.headshot` | Keep `""` for design C. If adding a portrait later, use a confirmed real photo in `public/img/`; the generated archive is never a final photo. |
 
 Certification `issued` and `expires` use `Mon YYYY`, for example `Aug 2026`.
-Dates display only with `datesConfirmed: true`. A nonempty `credlyUrl` is a
-confirmed badge URL and enables one ordinary verification link independently of
-date confirmation. Do not infer active credential status.
+Dates display only with `datesConfirmed: true`; never promote provisional source
+dates to confirmed values. A nonempty `credlyUrl` is a confirmed badge URL and
+enables one ordinary verification link independently of date confirmation. Do
+not infer active credential status.
 
 A nonempty final `profile.cvUrl` enables ordinary PDF links in Overview and
 Contact, including without JavaScript, and replaces the pending CV text. Draft
 status remains while `settings.noindex` is true, even when final data arrives.
 Project `detailSummary` / `detailText` hold optional confirmed disclosure copy;
 `role`, `problem`, and `outcome` always remain visible.
-Experience/track periods are text; keep their confirmed wording.
+Experience/track periods are text; keep their confirmed wording. The current cloud track uses `2025-present` and the overall role uses `2022–present`.
 
 ## Experience responsibilities
 
@@ -106,7 +108,7 @@ Each item under `experience[].tracks[]` may include a `responsibilities` list.
 Leave it absent or set it to `[]` until the personal responsibilities are confirmed;
 no bullet list appears when it is empty. Add up to five nonempty items, each no more
 than 240 characters. Keep the role and each track's period accurate: the on-prem
-track starts in 2022, while the cloud track runs in parallel since 2025.
+track starts in 2022, while the cloud track period is `2025-present`.
 
 This commented example goes below a track's `period`, at the same indentation.
 Replace `[responsibility]` with confirmed text before uncommenting:
