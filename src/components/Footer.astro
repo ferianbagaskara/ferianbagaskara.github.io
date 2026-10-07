@@ -1,0 +1,6 @@
+---
+// Footer line, no year (spec 5.14).
+interface Props { name: string; headline: string }
+const { name, headline } = Astro.props;
+---
+<footer><div class="wrap"><span>© {name} · {headline}</span></div></footer>

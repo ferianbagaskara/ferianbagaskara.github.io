@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ferian Bagaskara — Design C preview</title>
+  <style>
+    :root {
+      --bg:#fff; --ink:#14171c; --ink-2:#2f3642; --muted:#566070;
+      --accent:#1d5fe0; --accent-hover:#164bb5; --accent-active:#123d94;
+      --line:#e4e7ec; --line-2:#d3d8e0; --accent-soft:#eef3fd;
+      --serif:Georgia,"Times New Roman",serif;
+      --sans:"Inter Variable",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      --mono:"JetBrains Mono Variable","JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:1rem; line-height:1.65; }
+    a { color:var(--accent); text-underline-offset:3px; }
+    a:hover { color:var(--accent-hover); }
+    a:active { color:var(--accent-active); }
+    :focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+    .skip { position:absolute; left:1rem; top:-8rem; padding:.75rem 1rem; background:var(--bg); z-index:2; }
+    .skip:focus { top:1rem; }
+    .shell { max-width:66rem; margin:auto; padding:0 1.25rem; }
+    .sidebar { display:none; }
+    .mobile-sections { margin-top:1.5rem; border-bottom:1px solid var(--line); padding-bottom:.5rem; }
+    summary { cursor:pointer; min-height:44px; padding:.625rem 0; font-weight:500; }
+    nav { font-size:.9375rem; line-height:1.5; }
+    nav a { display:block; min-height:44px; padding:.625rem .75rem; border-left:2px solid transparent; text-decoration:none; color:var(--ink-2); }
+    nav a:hover { text-decoration:underline; }
+    nav a[aria-current="location"] { border-left-color:var(--accent); color:var(--accent); font-weight:600; }
+    main { min-width:0; max-width:43rem; }
+    section { padding:1.75rem 0; border-top:1px solid var(--line); }
+    #overview { padding-top:1.5rem; border:0; padding-bottom:2rem; }
+    h1,h2,h3,p { margin:0; }
+    h1,h2 { font-family:var(--serif); font-weight:400; }
+    h1 { font-size:2.125rem; line-height:1.15; margin:.75rem 0; }
+    h2 { font-size:1.5rem; line-height:1.25; margin-bottom:1rem; }
+    h3 { font-size:1.125rem; font-weight:600; line-height:1.4; margin-bottom:.75rem; }
+    h1,h2 { scroll-margin-top:2rem; }
+    p { max-width:65ch; margin-bottom:.75rem; }
+    .draft,.meta,.boundary,.credential-meta,.pending { font-size:.9375rem; line-height:1.5; color:var(--muted); }
+    .draft { margin-bottom:.75rem; }
+    .headline { font-size:1.125rem; line-height:1.4; font-weight:600; margin-bottom:1rem; }
+    .overview-copy { color:var(--ink-2); }
+    .overview-meta { margin:1rem 0; }
+    .overview-meta p { margin:0 0 .25rem; }
+    .overview-action { margin-bottom:.5rem; }
+    .experience-meta { margin-top:-.25rem; }
+    .tracks { margin:1rem 0 0; padding-left:1.25rem; }
+    .tracks li + li { margin-top:.5rem; }
+    article + article { border-top:1px solid var(--line); margin-top:1.5rem; padding-top:1.5rem; }
+    .project-copy { color:var(--ink-2); }
+    .boundary { margin:1rem 0 .5rem; }
+    .project-details { border-top:1px solid var(--line); }
+    .project-details summary { color:var(--ink-2); }
+    .detail-body { padding:.25rem 0 .5rem; }
+    .scope { margin:0; }
+    .scope div { margin-bottom:.75rem; }
+    .scope dt { font-weight:600; }
+    .scope dd { margin:0; color:var(--ink-2); }
+    .pipeline { margin:.25rem 0 .75rem; padding-left:1.5rem; }
+    .pipeline li { padding-left:.25rem; margin:.25rem 0; }
+    .credentials { list-style:none; padding:0; margin:0; }
+    .credentials li { padding:1rem 0; border-top:1px solid var(--line); }
+    .credentials li:first-child { padding-top:0; border:0; }
+    .credential-name { display:block; font-weight:500; }
+    .credential-meta { display:block; margin-top:.25rem; }
+    .contact-fields { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; color:var(--muted); font-size:.9375rem; margin:1rem 0 0; }
+    .contact-fields div { display:flex; gap:.5rem; }
+    .contact-fields dt { font-weight:500; }
+    .contact-fields dd { margin:0; }
+    footer { border-top:1px solid var(--line); padding:1rem 0 2rem; font-size:.9375rem; color:var(--muted); }
+    @media (min-width:60rem) {
+      .shell { display:grid; grid-template-columns:12rem minmax(0,1fr); gap:3rem; padding:0 1.5rem; }
+      .sidebar { display:block; padding-top:2rem; align-self:start; position:sticky; top:0; }
+      .sidebar-name { font-weight:600; margin:0 0 1rem .875rem; font-size:.9375rem; }
+      .mobile-sections { display:none; }
+      #overview { padding-top:2.5rem; }
+      section { padding:2rem 0; }
+      h1 { font-size:2.75rem; }
+      h2 { font-size:1.75rem; }
+      .headline { font-size:1.25rem; }
+    }
+    @media (min-width:60rem) and (max-height:30rem) { .sidebar { position:static; } }
+    @media (max-width:359px) { .shell { padding:0 1rem; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Portfolio navigation">
+      <p class="sidebar-name">Ferian Bagaskara</p>
+      <nav aria-label="Sections">
+        <a href="#overview">Overview</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </aside>
+    <main id="content" tabindex="-1">
+      <details class="mobile-sections">
+        <summary>Sections</summary>
+        <nav aria-label="Sections">
+          <a href="#overview">Overview</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </details>
+      <section id="overview" aria-labelledby="overview-heading">
+        <p class="draft">Draft portfolio — contact details and CV pending.</p>
+        <h1 id="overview-heading" tabindex="-1">Ferian Bagaskara</h1>
+        <p class="headline">Cloud Network Engineer <span aria-hidden="true">|</span> Hybrid &amp; Multi-Cloud Networking</p>
+        <p class="overview-copy">I work on networks that connect on-prem data centers, AWS, and Google Cloud. My work includes hybrid cloud networking and an on-prem network observability pipeline built with Python and Grafana.</p>
+        <div class="overview-meta meta">
+          <p>Based in Indonesia</p>
+          <p>Open to remote and international roles</p>
+        </div>
+        <p class="overview-action"><a href="#contact">Contact</a></p>
+        <p class="pending">CV pending final details.</p>
+      </section>
+      <section id="experience" aria-labelledby="experience-heading">
+        <h2 id="experience-heading" tabindex="-1">Experience</h2>
+        <h3>Network &amp; Cloud Network Engineer</h3>
+        <p class="experience-meta meta">An Indonesian bank · 2022–present</p>
+        <ul class="tracks">
+          <li>On-prem network engineering: 2022–present.</li>
+          <li>AWS and Google Cloud network architecture and engineering: in parallel since 2025.</li>
+        </ul>
+      </section>
+      <section id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading" tabindex="-1">Projects</h2>
+        <article aria-labelledby="hybrid-heading">
+          <h3 id="hybrid-heading">Hybrid multi-cloud banking network</h3>
+          <div class="project-copy">
+            <p>Mobile and corporate banking workloads needed active-active operation across on-prem data centers, AWS, and Google Cloud.</p>
+            <p><strong>Contribution.</strong> Designed and implemented the AWS network; implemented the Google Cloud network. Work covered Direct Connect and Interconnect, VPCs, DNS, load balancers, and traffic flows within and between VPCs and at ingress/egress.</p>
+            <p><strong>Outcome.</strong> Supported flexible cloud workload scaling and provisioning of development environments.</p>
+          </div>
+          <p class="boundary">Details under NDA.</p>
+          <details class="project-details">
+            <summary>Network scope</summary>
+            <div class="detail-body">
+              <dl class="scope">
+                <div><dt>Cloud network work</dt><dd>AWS network design and implementation; Google Cloud network implementation.</dd></div>
+                <div><dt>Connectivity and services</dt><dd>Direct Connect, Interconnect, VPCs, DNS, and load balancers.</dd></div>
+                <div><dt>Traffic flows</dt><dd>Within and between VPCs, plus ingress and egress.</dd></div>
+              </dl>
+            </div>
+          </details>
+        </article>
+        <article aria-labelledby="observability-heading">
+          <h3 id="observability-heading">Network observability pipeline</h3>
+          <div class="project-copy">
+            <p>The on-prem network needed consistent health visibility from ping data and raw SolarWinds data.</p>
+            <p><strong>Contribution.</strong> Built a Python pipeline that processes ping data and raw SolarWinds data from SQL Server, stores the results in a database, and feeds Grafana dashboards with alerting.</p>
+            <p><strong>Outcome.</strong> Provided dashboards and alerts for the on-prem network.</p>
+          </div>
+          <p class="boundary">Internal tool. Code is private.</p>
+          <details class="project-details">
+            <summary>Data pipeline details</summary>
+            <div class="detail-body">
+              <ol class="pipeline" aria-label="Data pipeline sequence">
+                <li>Ping data and raw SolarWinds data from SQL Server</li>
+                <li>Python processing</li>
+                <li>Database storage</li>
+                <li>Grafana dashboards and alerts</li>
+              </ol>
+            </div>
+          </details>
+        </article>
+      </section>
+      <section id="certifications" aria-labelledby="certifications-heading">
+        <h2 id="certifications-heading" tabindex="-1">Certifications</h2>
+        <ul class="credentials">
+          <li><span class="credential-name">AWS Certified Advanced Networking – Specialty</span><span class="credential-meta">Amazon Web Services · Certification</span></li>
+          <li><span class="credential-name">AWS Application Networking – Demonstrated</span><span class="credential-meta">Amazon Web Services · Microcredential</span></li>
+          <li><span class="credential-name">AWS Certified Solutions Architect – Associate</span><span class="credential-meta">Amazon Web Services · Certification</span></li>
+          <li><span class="credential-name">Cisco Certified Network Associate (CCNA)</span><span class="credential-meta">Cisco · Certification</span></li>
+        </ul>
+      </section>
+      <section id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" tabindex="-1">Contact</h2>
+        <p>Interested in my cloud networking experience? Get in touch.</p>
+        <p class="pending">Contact details pending confirmation.</p>
+        <dl class="contact-fields" aria-label="Unconfirmed contact placeholders">
+          <div><dt>Email</dt><dd>[Email]</dd></div>
+          <div><dt>LinkedIn</dt><dd>[LinkedIn]</dd></div>
+          <div><dt>CV</dt><dd>[CV]</dd></div>
+        </dl>
+      </section>
+      <footer>Design C · Review preview</footer>
+    </main>
+  </div>
+  <script>
+    (() => {
+      const sections = [...document.querySelectorAll('main > section')];
+      const links = [...document.querySelectorAll('nav a')];
+      const sidebar = document.querySelector('.sidebar');
+      const headings = sections.map(section => section.querySelector('h1, h2'));
+      const setCurrent = id => {
+        links.forEach(link => {
+          if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      };
+      const update = () => {
+        let current = sections[0].id;
+        const readingLine = window.innerHeight * .25;
+        headings.forEach((heading, index) => {
+          if (heading.getBoundingClientRect().top <= readingLine) current = sections[index].id;
+        });
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) current = 'contact';
+        setCurrent(current);
+        // Height measured at the actual font/text size; release sticky before navigation clips.
+        sidebar.style.position = sidebar.offsetHeight > window.innerHeight - 32 ? 'static' : '';
+      };
+      let pending = false;
+      const schedule = () => {
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => { pending = false; update(); });
+      };
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', event => {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          const target = document.getElementById(link.hash.slice(1));
+          if (!target) return;
+          if (sections.includes(target)) setCurrent(target.id);
+          const focusTarget = target.querySelector('h1, h2') || target;
+          // The browser still owns the anchor, hash and history transition.
+          requestAnimationFrame(() => focusTarget.focus({ preventScroll:true }));
+        });
+      });
+      window.addEventListener('scroll', schedule, { passive:true });
+      window.addEventListener('resize', schedule);
+      window.addEventListener('hashchange', schedule);
+      window.addEventListener('pageshow', schedule);
+      document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', schedule));
+      update();
+    })();
+  </script>
+</body>
+</html>

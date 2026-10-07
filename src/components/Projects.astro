@@ -1,0 +1,12 @@
+---
+// Projects section.
+import ProjectCard from './ProjectCard.astro';
+import type { Site } from '../lib/site';
+interface Props { projects: Site['projects'] }
+---
+<section id="projects" aria-labelledby="h-proj" tabindex="-1">
+  <div class="wrap">
+    <div class="sh"><h2 id="h-proj">Projects</h2></div>
+    <div class="projects">{Astro.props.projects.map((p) => <ProjectCard project={p} />)}</div>
+  </div>
+</section>

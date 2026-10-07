@@ -1,0 +1,17 @@
+---
+// Primary / secondary button. An empty href renders the "coming soon" placeholder (never href="#").
+// With hide=true (settings.hidePlaceholders, spec 6.1) an empty href renders nothing.
+import Icon, { type IconName } from './Icon.astro';
+import ComingSoon from './ComingSoon.astro';
+interface Props {
+  href: string; label: string; variant?: 'primary' | 'secondary'; size?: 'sm' | 'md' | 'xl';
+  icon?: IconName; external?: boolean; mail?: boolean; download?: boolean; hide?: boolean; class?: string;
+}
+const { href, label, variant = 'primary', size = 'md', icon, external = false, mail = false, download = false, hide = false, class: extra } = Astro.props;
+const cls = ['btn', `btn-${variant}`, size !== 'md' && `btn-${size}`, mail && 'js-mail', extra];
+---
+{href
+  ? <a class:list={cls} href={href} download={download || undefined} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+      {icon && <Icon name={icon} />}{label}{external && <><span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></>}
+    </a>
+  : !hide && <span class:list={[...cls, 'is-soon']} aria-disabled="true">{icon && <Icon name={icon} />}{label} <ComingSoon /></span>}

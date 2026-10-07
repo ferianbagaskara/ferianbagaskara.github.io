@@ -1,0 +1,52 @@
+---
+// <html> and <head>: meta, robots, canonical, Open Graph, icons, self-hosted fonts (spec 7, 1.2).
+import '../styles/tokens.css';
+import '../styles/global.css';
+import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import monoUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
+import enhance from '../scripts/enhance.js?raw';
+import { absUrl } from '../lib/format';
+import { isPlaceholderSiteUrl } from '../lib/schema.mjs';
+import type { Site } from '../lib/site';
+interface Props { settings: Site['settings']; profile: Site['profile']; title?: string; forceNoindex?: boolean }
+const { settings, profile, title = `${profile.name} · ${profile.headline}`, forceNoindex = false } = Astro.props;
+const noindex = forceNoindex || settings.noindex;
+const canonical = absUrl(settings.siteUrl, '/');
+const hasConfirmedSiteUrl = !isPlaceholderSiteUrl(settings.siteUrl);
+const hasConfirmedOgImage = hasConfirmedSiteUrl && settings.ogImageConfirmed;
+// Latin subset only; unicode-range matches the Fontsource latin subset.
+const latin = 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD';
+const fontCss = `@font-face{font-family:"Inter Variable";font-style:normal;font-display:swap;font-weight:100 900;src:url(${interUrl}) format("woff2-variations");unicode-range:${latin}}@font-face{font-family:"JetBrains Mono Variable";font-style:normal;font-display:swap;font-weight:100 800;src:url(${monoUrl}) format("woff2-variations");unicode-range:${latin}}`;
+---
+<!doctype html>
+<html lang={settings.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={profile.tagline} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontCss} />
+    {!forceNoindex && hasConfirmedSiteUrl && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={profile.tagline} />
+    {hasConfirmedSiteUrl && <meta property="og:url" content={canonical} />}
+    {hasConfirmedOgImage && <>
+      <meta property="og:image:alt" content={`${profile.name}, ${profile.headline}`} />
+      <meta property="og:image" content={absUrl(settings.siteUrl, '/og-image.png')} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+    </>}
+    <meta name="twitter:card" content={hasConfirmedOgImage ? 'summary_large_image' : 'summary'} />
+  </head>
+  <body>
+    <slot />
+    <script is:inline set:html={enhance} />
+  </body>
+</html>

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+npm-debug.log*
+.env
+# Local archive contains historical persona material; keep it out of the public repository.
+docs/assets/historical/

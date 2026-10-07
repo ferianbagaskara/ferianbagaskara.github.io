@@ -1,0 +1,12 @@
+---
+// Skill group cards (spec 5.12).
+import Tags from './Tags.astro';
+import type { Site } from '../lib/site';
+interface Props { skills: Site['skills'] }
+---
+<section id="skills" aria-labelledby="h-skills">
+  <div class="wrap">
+    <div class="sh"><h2 id="h-skills">Skills</h2></div>
+    <ul class="skills">{Astro.props.skills.map((s) => <li class="skill"><h3>{s.group}</h3><Tags items={s.items} /></li>)}</ul>
+  </div>
+</section>

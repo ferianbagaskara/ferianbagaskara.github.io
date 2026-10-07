@@ -1,0 +1,13 @@
+---
+// Compact credential list; dates and verification links stay out until confirmed.
+import CertCard from './CertCard.astro';
+import type { Site } from '../lib/site';
+interface Props { certifications: Site['certifications']; hide: boolean }
+const { certifications } = Astro.props;
+---
+<section id="certifications" aria-labelledby="h-certs" tabindex="-1">
+  <div class="wrap">
+    <div class="sh"><h2 id="h-certs">Certifications</h2></div>
+    <ul class="certs">{certifications.map((c) => <CertCard cert={c} />)}</ul>
+  </div>
+</section>

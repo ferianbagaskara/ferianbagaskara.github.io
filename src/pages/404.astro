@@ -1,0 +1,29 @@
+---
+// Not-found page (spec 5.16). Always noindex. GitHub Pages serves dist/404.html automatically.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import { site } from '../lib/site';
+const { settings, profile } = site;
+---
+<BaseLayout settings={settings} profile={profile} title={`Page not found · ${profile.name}`} forceNoindex>
+  <a class="skip-link btn btn-primary" href="#main">Skip to content</a>
+  <Header name={profile.name} base="/" />
+  <main id="main" tabindex="-1">
+    <section class="nf" aria-labelledby="nf-title">
+      <div class="wrap">
+        <div class="nf-block">
+          <span class="kind">404</span>
+          <h1 id="nf-title">Page not found</h1>
+          <p class="tagline">This page doesn't exist. The portfolio is on the home page.</p>
+          <div class="ctas nf-ctas">
+            <Button href="/" label="Back to home" />
+            <Button href="/#contact" label="Contact" variant="secondary" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer name={profile.name} headline={profile.headline} />
+</BaseLayout>

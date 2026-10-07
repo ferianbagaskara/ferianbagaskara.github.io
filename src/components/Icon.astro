@@ -1,0 +1,27 @@
+---
+// Decorative inline SVG icons. Always aria-hidden and not focusable.
+export type IconName = 'mail' | 'download' | 'linkedin' | 'menu' | 'close' | 'bank' | 'server' | 'cloud' | 'lock' | 'code' | 'copy' | 'check' | 'globe' | 'badge' | 'brand';
+interface Props { name: IconName; size?: number; class?: string }
+const { name, size, class: cls } = Astro.props;
+const st = 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+const paths: Record<IconName, [number, string, string?]> = {
+  mail: [18, `<g ${st}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></g>`],
+  download: [18, `<path ${st} d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/>`],
+  linkedin: [18, `<path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5c0-1.2-.02-2.75-1.68-2.75-1.68 0-1.94 1.3-1.94 2.66V21h-4z"/>`],
+  menu: [20, `<path ${st} d="M4 7h16M4 12h16M4 17h16"/>`],
+  close: [20, `<path ${st} d="M6 6l12 12M18 6 6 18"/>`],
+  bank: [20, `<path ${st} d="M3 10 12 4l9 6M5 10v9m4-9v9m6-9v9m4-9v9M3 20h18"/>`],
+  server: [20, `<g ${st}><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01"/></g>`],
+  cloud: [20, `<path ${st} d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.1 9.2 4.5 4.5 0 0 0 7 18z"/>`],
+  lock: [13, `<g ${st}><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g>`],
+  code: [13, `<path ${st} d="m8 7-5 5 5 5M16 7l5 5-5 5"/>`],
+  copy: [16, `<g ${st}><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></g>`],
+  check: [16, `<path ${st} d="M5 12.5 10 17 19 7"/>`],
+  globe: [14, `<g ${st}><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></g>`],
+  badge: [16, `<g ${st}><circle cx="12" cy="9" r="6"/><path d="m8.5 13.9-1.5 7.1 5-3 5 3-1.5-7.1"/></g>`],
+  brand: [26, `<rect width="64" height="64" rx="14" fill="#1d5fe0"/><path d="M22 42 L32 22 L42 42" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/><g fill="#fff"><circle cx="32" cy="21" r="6"/><circle cx="21" cy="43" r="6"/><circle cx="43" cy="43" r="6"/></g>`, '0 0 64 64'],
+};
+const [def, body, vb = '0 0 24 24'] = paths[name];
+const px = size ?? def;
+---
+<svg class={cls} width={px} height={px} viewBox={vb} aria-hidden="true" focusable="false" set:html={body} />

@@ -1,0 +1,127 @@
+# ============================================================
+#  Ferian Bagaskara portfolio: source of confirmed profile facts
+#  CV PDF / OG image updates are manual: see docs/EDITING.md.
+#  GitHub Pages serves the reviewed public draft; noindex stays enabled while placeholders remain.
+#  Empty optional links stay placeholders or are hidden by settings.
+# ============================================================
+
+settings:
+  # Keep true while placeholders remain, so search engines skip the draft.
+  noindex: true
+  siteUrl: https://ferianbagaskara.github.io
+  lang: en
+  # Leave false during colleague review. At launch, true hides any link that is still "" instead of showing "coming soon".
+  hidePlaceholders: false
+  ogImageConfirmed: false   # Stale draft bitmap: replace/review against current YAML before enabling.
+
+profile:
+  name: Ferian Bagaskara
+  headline: Cloud Network Engineer | Hybrid & Multi-Cloud Networking
+  tagline: >-
+    I work on networks that connect on-prem data centers, AWS, and Google Cloud.
+    My work includes hybrid cloud networking and an on-prem network observability
+    pipeline built with Python and Grafana.
+  availability: Open to remote and international roles
+  location: Based in Indonesia
+  headshot: ""   # No portrait in design C; generated placeholder is archived outside public/.
+  cvUrl: ""   # PLACEHOLDER: add Ferian's final CV only after its contents are confirmed.
+
+contact:
+  # Unconfirmed parts never create actions; confirmed parts have a human-readable noscript fallback.
+  emailConfirmed: false
+  emailUser: placeholder
+  emailDomain: invalid.invalid
+  linkedinUrl: ""        # PLACEHOLDER: e.g. https://www.linkedin.com/in/your-name
+  # Optional line above the contact buttons; leave "" to show just "Contact".
+  heading: "Interested in my cloud networking experience? Get in touch."
+
+certifications:
+  - name: AWS Certified Advanced Networking – Specialty
+    short: AWS Advanced Networking      # optional shorter name for the hero line
+    featured: true       # historical optional field; design C has no hero credential line
+    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    issuer: Amazon Web Services
+    issued: Aug 2026
+    expires: Aug 2029
+    kind: certification
+    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+  - name: AWS Application Networking – Demonstrated
+    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    issuer: Amazon Web Services
+    issued: Aug 2026
+    expires: Aug 2027
+    kind: microcredential   # hands-on microcredential, styled distinctly
+    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+  - name: AWS Certified Solutions Architect – Associate
+    short: AWS Solutions Architect Associate      # optional shorter name for the hero line
+    featured: true       # historical optional field; design C has no hero credential line
+    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    issuer: Amazon Web Services
+    issued: Feb 2026
+    expires: Feb 2029
+    kind: certification
+    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+  - name: Cisco Certified Network Associate (CCNA)
+    short: CCNA      # optional shorter name for the hero line
+    featured: true       # historical optional field; design C has no hero credential line
+    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    issuer: Cisco
+    issued: May 2024
+    expires: May 2027
+    kind: certification
+    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+
+experience:
+  - role: Network & Cloud Network Engineer
+    employer: An Indonesian bank
+    period: 2022–present
+    # Each track may have up to 5 confirmed responsibilities (240 characters each).
+    # Leave responsibilities absent or [] until personal responsibilities are confirmed.
+    tracks:
+      - title: On-prem network engineering
+        period: 2022–present
+        # Replace this placeholder with confirmed text before uncommenting:
+        # responsibilities:
+        #   - "[responsibility]"
+      - title: AWS and Google Cloud network architecture and engineering
+        period: In parallel since 2025
+
+projects:
+  - title: Hybrid multi-cloud banking network
+    nda: true            # shows the "Details under NDA" badge
+    problem: >-
+      Mobile and corporate banking workloads needed active-active operation across
+      on-prem data centers, AWS, and Google Cloud.
+    role: >-
+      Designed and implemented the AWS network; implemented the Google Cloud network.
+      Work covered Direct Connect and Interconnect, VPCs, DNS, load balancers, and
+      traffic flows within and between VPCs and at ingress/egress.
+    outcome: >-
+      Supported flexible cloud workload scaling and provisioning of development environments.
+    tags: [AWS, GCP, Direct Connect, Interconnect, VPC, DNS, Load balancers, Hybrid cloud]
+    detailSummary: Network scope and illustrative topology
+    diagram: true        # generic topology, labelled "illustrative, not actual architecture"
+  - title: Network observability pipeline
+    nda: false
+    privateCode: true    # shows "Private code, described only"
+    problem: >-
+      The on-prem network needed consistent health visibility from ping data
+      and raw SolarWinds data.
+    role: >-
+      Built a Python pipeline that processes ping data and raw SolarWinds data
+      from SQL Server, stores the results in a database, and feeds Grafana
+      dashboards with alerting.
+    outcome: >-
+      Provided dashboards and alerts for the on-prem network.
+    tags: [Python, SolarWinds, SQL Server, Grafana, Alerting]
+    detailSummary: Data pipeline details
+    detailText: ping + SolarWinds (SQL Server) → Python processing → database → Grafana dashboards and alerts
+
+# Skills are drawn only from the confirmed projects and certs above.
+skills:
+  - group: Cloud networking
+    items: [AWS, GCP, Direct Connect, Interconnect, VPC, DNS, Load balancers]
+  - group: Network engineering
+    items: [On-prem data center networking, Cisco (CCNA), Ingress/egress traffic flows]
+  - group: Automation & observability
+    items: [Python, SQL Server, SolarWinds, Grafana, Alerting]

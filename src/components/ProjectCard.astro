@@ -1,0 +1,36 @@
+---
+// Keep project evidence visible; native disclosure holds supporting details.
+import Icon from './Icon.astro';
+import Tags from './Tags.astro';
+import type { Project } from '../lib/site';
+import topoDesktop from '../assets/topology-desktop.svg?raw';
+import topoMobile from '../assets/topology-mobile.svg?raw';
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const topo = topoDesktop.replace(/<svg /, '<svg class="topo topo-d" ') + topoMobile.replace(/<svg /, '<svg class="topo topo-m" ');
+---
+<article class:list={['proj', p.diagram ? 'has-diagram' : 'wide']}>
+  <div class="content">
+    <div class="titlerow">
+      <h3>{p.title}</h3>
+      {p.nda && <span class="badge"><Icon name="lock" />Details under NDA</span>}
+      {p.privateCode && <span class="badge"><Icon name="code" />Internal tool. Code is private.</span>}
+    </div>
+    <dl>
+      <div><dt>Problem</dt><dd>{p.problem}</dd></div>
+      <div><dt>Contribution</dt><dd>{p.role}</dd></div>
+      <div><dt>Outcome</dt><dd>{p.outcome}</dd></div>
+    </dl>
+    <details class="project-details">
+      <summary>{p.detailSummary || 'Project details'}</summary>
+      {p.detailText && <p>{p.detailText}</p>}
+      <Tags items={p.tags} />
+      {p.diagram && (
+        <figure>
+          <Fragment set:html={topo} />
+          <figcaption>Illustrative, not actual architecture</figcaption>
+        </figure>
+      )}
+    </details>
+  </div>
+</article>

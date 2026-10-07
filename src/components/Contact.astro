@@ -1,0 +1,39 @@
+---
+// Unconfirmed contact data stays in YAML and never becomes an email action.
+import Icon from './Icon.astro';
+import { noJsEmail } from '../lib/format';
+import type { Site } from '../lib/site';
+interface Props { contact: Site['contact']; availability: string; cvUrl: string; hide: boolean }
+const { contact, availability, cvUrl, hide } = Astro.props;
+const emailConfirmed = contact.emailConfirmed === true;
+---
+<section id="contact" class="contact" aria-labelledby="h-contact" tabindex="-1">
+  <div class="wrap">
+    <div class="contact-card">
+      <div class="contact-left">
+        <h2 id="h-contact">Contact</h2>
+        {contact.heading && <p class="contact-lead">{contact.heading}</p>}
+        <p class="contact-availability">{availability}</p>
+        {emailConfirmed && <a class="btn btn-primary js-mail" hidden><Icon name="mail" />Email me</a>}
+      </div>
+      <div>
+        {!emailConfirmed && <p class="contact-pending">Contact details pending confirmation.</p>}
+        {emailConfirmed ? <>
+        <div class="label-sm" id="email-label">Email</div>
+        <div class="copyrow">
+          <output id="email-text" aria-labelledby="email-label" data-email-confirmed="true" data-u={contact.emailUser} data-d={contact.emailDomain}><noscript>{noJsEmail(contact.emailUser, contact.emailDomain)}</noscript></output>
+          <button class="copy-btn" id="copy-btn" type="button" aria-label="Copy email address" hidden>
+            <Icon name="copy" class="ic-copy" /><Icon name="check" class="ic-check" /><span class="lbl">Copy</span>
+          </button>
+        </div>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <noscript><p class="contact-help">Replace [at] with @ and [dot] with . to email me.</p></noscript>
+        </> : !hide && <p class="contact-placeholders">[Email]{!contact.linkedinUrl && ' · [LinkedIn]'}</p>}
+        {contact.linkedinUrl
+          ? <a class="soc-link" href={contact.linkedinUrl}><Icon name="linkedin" />LinkedIn</a>
+          : null}
+        {cvUrl && <p><a href={cvUrl}>Download CV (PDF)</a></p>}
+      </div>
+    </div>
+  </div>
+</section>

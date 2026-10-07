@@ -1,0 +1,23 @@
+---
+// Sticky header: brand, nav links, menu toggle (below 768 px) and mobile menu (spec 5.1).
+import Icon from './Icon.astro';
+interface Props { name: string; base?: string }
+const { name, base = '' } = Astro.props; // base = "/" on the 404 page so links point back home
+const nav = [['certifications', 'Certifications'], ['experience', 'Experience'], ['projects', 'Projects'], ['skills', 'Skills'], ['contact', 'Contact']];
+---
+<header class="site-head">
+  <div class="wrap">
+    <nav class="top" aria-label="Primary">
+      <a class="brand" href={`${base}#hero`}><Icon name="brand" />{name}</a>
+      <ul class="nav-links">{nav.map(([id, label]) => <li><a href={`${base}#${id}`}>{label}</a></li>)}</ul>
+      <div class="nav-actions">
+        <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <Icon name="menu" class="i-open" /><Icon name="close" class="i-close" />
+        </button>
+      </div>
+    </nav>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    {nav.map(([id, label]) => <a class="row" href={`${base}#${id}`}>{label}</a>)}
+  </div>
+</header>

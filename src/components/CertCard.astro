@@ -1,0 +1,16 @@
+---
+// One compact row in the Certifications list.
+import type { Cert } from '../lib/site';
+interface Props { cert: Cert }
+const { cert: c } = Astro.props;
+const micro = c.kind === 'microcredential';
+---
+<li class:list={['cert', { micro }]}>
+  <div class="cert-copy">
+    <h3>{c.name}</h3>
+    <p class="issuer">{c.issuer}</p>
+    {c.datesConfirmed && <p class="issuer">Issued {c.issued} · Expires {c.expires}</p>}
+    {c.credlyUrl && <a href={c.credlyUrl}>Verify credential</a>}
+  </div>
+  <span class="kind">{micro ? 'Microcredential' : 'Certification'}</span>
+</li>

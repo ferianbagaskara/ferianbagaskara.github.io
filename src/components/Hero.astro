@@ -1,0 +1,26 @@
+---
+// Compact overview content; credential details live in the Certifications section.
+import Icon from './Icon.astro';
+import type { Site } from '../lib/site';
+interface Props { profile: Site['profile']; draft: boolean; contactPending: boolean }
+const { profile, draft, contactPending } = Astro.props;
+---
+<section id="hero" class="hero" aria-labelledby="hero-name">
+  <div class="wrap">
+    <div>
+      <h1 id="hero-name">{profile.name}</h1>
+      {draft && <p class="hero-draft-status">{contactPending && !profile.cvUrl
+        ? 'Draft portfolio — contact details and CV pending.'
+        : 'Draft portfolio — pending final review.'}</p>}
+      <p class="headline">{profile.headline}</p>
+      <p class="tagline">{profile.tagline}</p>
+      <div class="meta-row">
+        {profile.location && <p class="location"><Icon name="globe" />{profile.location}</p>}
+      </div>
+      <div class="ctas"><a href="#contact">Contact</a></div>
+      {profile.cvUrl
+        ? <p class="hero-cv-status"><a href={profile.cvUrl}>Download CV (PDF)</a></p>
+        : draft && <p class="hero-cv-status">CV pending final details.</p>}
+    </div>
+  </div>
+</section>
