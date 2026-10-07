@@ -15,7 +15,7 @@ const hide = settings.hidePlaceholders;
 <BaseLayout settings={settings} profile={profile}>
   <DocumentationLayout profile={profile} linkedinUrl={contact.linkedinUrl}>
     <div id="overview" aria-labelledby="hero-name" tabindex="-1">
-      <Hero profile={profile} draft={settings.noindex} certifications={certifications} focusAreas={site.focusAreas} />
+      <Hero profile={profile} draft={settings.noindex} certifications={certifications} />
     </div>
     <Experience experience={experience} />
     <Projects projects={projects} />

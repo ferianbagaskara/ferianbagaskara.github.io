@@ -243,13 +243,6 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .overview-credentials > span > span { display: block; }
 .documentation .credential-link-label { color: var(--accent); margin-top: .3rem; }
 .documentation .overview-credentials:hover .credential-link-label { text-decoration: underline; }
-.documentation .overview-focus { margin-top: 2rem; }
-.documentation .overview-focus h2 { font: 600 1.15rem/1.4 var(--sans); margin-bottom: .65rem; }
-.documentation .overview-focus ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
-.documentation .overview-focus li { padding: 1rem; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfe; }
-.documentation .overview-focus svg { color: var(--accent); margin-bottom: .6rem; }
-.documentation .overview-focus h3 { font-size: .875rem; line-height: 1.4; font-weight: 600; }
-.documentation .overview-focus li p { font-size: .8125rem; line-height: 1.55; margin-top: .4rem; color: var(--muted); }
 .documentation .overview-actions { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; align-items: center; margin-top: 1.3rem; }
 .documentation .overview-actions a { display: inline-flex; gap: .6rem; align-items: center; min-height: 44px; font-size: .875rem; text-decoration: none; }
 .documentation .overview-actions .overview-contact { color: #fff; background: var(--ink); padding: .6rem 1rem; border-radius: 5px; }
@@ -296,8 +289,6 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
   .documentation .certs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .documentation .overview-meta { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
   .documentation .overview-credentials { border-left: 1px solid var(--line); padding-left: 2rem; }
-  .documentation .overview-focus ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-@media (max-width: 379px) { .documentation .overview-focus ul { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: no-preference) { .documentation .documentation-nav a, .documentation .overview-contact { transition: background-color .15s ease; } }
 @media (min-width: 60rem) and (max-height: 30rem) { .documentation-sidebar { position: static; min-height: 0; } }

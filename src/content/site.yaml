@@ -19,7 +19,7 @@ profile:
   headline: Cloud Network Engineer | Hybrid & Multi-Cloud Networking
   tagline: Hybrid and multi-cloud networking across on-prem, AWS, and GCP.
   availability: Open to remote and international roles
-  location: Based in Indonesia
+  location: Based in Indonesia · Any time zone
   headshot: ""   # No portrait in design C; generated placeholder is archived outside public/.
   cvUrl: ""   # PLACEHOLDER: add Ferian's final CV only after its contents are confirmed.
 
@@ -36,14 +36,14 @@ certifications:
   - name: AWS Certified Advanced Networking – Specialty
     short: AWS Advanced Networking      # optional shorter name for the hero line
     featured: true       # historical optional field; design C has no hero credential line
-    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    datesConfirmed: true
     issuer: Amazon Web Services
     issued: Aug 2026
     expires: Aug 2029
     kind: certification
     credlyUrl: "https://www.credly.com/badges/607fe779-6e4a-497d-b19f-d58e037cdae0"
   - name: AWS Application Networking – Demonstrated
-    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    datesConfirmed: true
     issuer: Amazon Web Services
     issued: Aug 2026
     expires: Aug 2027
@@ -52,7 +52,7 @@ certifications:
   - name: AWS Certified Solutions Architect – Associate
     short: AWS Solutions Architect Associate      # optional shorter name for the hero line
     featured: true       # historical optional field; design C has no hero credential line
-    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    datesConfirmed: true
     issuer: Amazon Web Services
     issued: Feb 2026
     expires: Feb 2029
@@ -61,7 +61,7 @@ certifications:
   - name: Cisco Certified Network Associate (CCNA)
     short: CCNA      # optional shorter name for the hero line
     featured: true       # historical optional field; design C has no hero credential line
-    datesConfirmed: false   # Source dates are provisional; do not display until verified.
+    datesConfirmed: true
     issuer: Cisco
     issued: May 2024
     expires: May 2027
@@ -113,21 +113,6 @@ projects:
     tags: [Python, SolarWinds, SQL Server, Grafana, Alerting]
     detailSummary: Data pipeline details
     detailText: ping + SolarWinds (SQL Server) → Python processing → database → Grafana dashboards and alerts
-
-# Overview focus areas summarize confirmed experience/projects/certifications.
-focusAreas:
-  - title: Enterprise Networking
-    description: On-prem network engineering since 2022.
-    icon: server
-  - title: Cloud Networking
-    description: AWS design and implementation; Google Cloud implementation since 2025.
-    icon: cloud
-  - title: Network Observability
-    description: Python pipelines, Grafana dashboards, and alerting.
-    icon: chart
-  - title: Continuous Learning
-    description: Networking certifications and hands-on practice.
-    icon: book
 
 # Skills are drawn only from the confirmed projects and certs above.
 skills:

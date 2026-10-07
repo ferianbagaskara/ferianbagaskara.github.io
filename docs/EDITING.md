@@ -80,8 +80,10 @@ superseded public files in the same change.
 Empty optional links show a placeholder or are hidden by `hidePlaceholders`.
 Email actions stay absent until the email is confirmed. For the current revision,
 email and LinkedIn were explicitly confirmed by Ferian; keep those values intact
-unless Ferian supplies a change. Four Credly badge links are mapped below. Their
-credential dates remain pending confirmation.
+unless Ferian supplies a change. Four Credly badge links are mapped below. All
+four credential issue and expiry dates were confirmed in the current revision.
+The Overview no longer has a Core Focus section, and the profile location reads
+“Based in Indonesia · Any time zone.”
 
 | What | Key in `site.yaml` | What to put |
 | --- | --- | --- |

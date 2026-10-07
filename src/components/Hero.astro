@@ -3,9 +3,9 @@ import Icon from './Icon.astro';
 import type { Site } from '../lib/site';
 interface Props {
   profile: Site['profile']; draft: boolean;
-  certifications: Site['certifications']; focusAreas: Site['focusAreas'];
+  certifications: Site['certifications'];
 }
-const { profile, draft, certifications, focusAreas } = Astro.props;
+const { profile, draft, certifications } = Astro.props;
 const featured = certifications.filter((cert) => cert.featured).slice(0, 4);
 ---
 <section id="hero" class="hero" aria-labelledby="hero-name">
@@ -22,10 +22,6 @@ const featured = certifications.filter((cert) => cert.featured).slice(0, 4);
       <div class="overview-location"><Icon name="pin" size={31} /><div><p>{profile.location}</p><p>{profile.availability}</p></div></div>
       <a class="overview-credentials" href="#certifications"><Icon name="shield" size={34} /><span>{featured.map((cert) => <span>{cert.short || cert.name}</span>)}<span class="credential-link-label">View credentials →</span></span></a>
     </div>
-    {focusAreas.length > 0 && <div class="overview-focus">
-      <h2>Core Focus</h2>
-      <ul>{focusAreas.map((focus) => <li><Icon name={focus.icon} size={30} /><h3>{focus.title}</h3><p>{focus.description}</p></li>)}</ul>
-    </div>}
     <div class="overview-actions"><a class="overview-contact" href="#contact"><Icon name="mail" />Contact me</a>
       {draft && <p class="hero-draft-status">Draft — pending final review.</p>}
     </div>
