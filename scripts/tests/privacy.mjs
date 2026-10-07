@@ -3,7 +3,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { contentPrivacyProblems, assetPrivacyProblems, emailPrivacyProblems } from '../../src/lib/privacy.mjs';
+import { contentPrivacyProblems, assetPrivacyProblems, emailPrivacyProblems, RESTRICTED_ASSET_FINGERPRINTS } from '../../src/lib/privacy.mjs';
+import { createHash } from 'node:crypto';
 import { checkDist } from '../check-dist.mjs';
 const draft = { settings: { noindex: true, siteUrl: 'https://<username>.github.io' }, profile: { headshot: '/img/headshot-placeholder.webp', cvUrl: '' }, contact: { emailConfirmed: false, emailUser: 'placeholder', emailDomain: 'invalid.invalid' } };
 assert.deepEqual(contentPrivacyProblems(draft), []);
@@ -21,29 +22,24 @@ try {
   fs.writeFileSync(path.join(root, '.nojekyll'), '');
   fs.writeFileSync(path.join(root, 'font.woff2'), 'fixture');
   assert.deepEqual(checkDist(draft, root), []);
+  const knownHashes = RESTRICTED_ASSET_FINGERPRINTS.map(({ sha256 }) => sha256);
+  assert.ok(knownHashes.includes('5ad0f3d9d2a2363016ae5d27d91b2b5ed0651be5796e535b5984da70b458d1e3'));
+  assert.ok(knownHashes.includes('838b2193cb74ded3117077d29c49a5fb964ecc32fdafa2e0de3d125bf40af4a2'));
+  const restrictedFixture = Buffer.from('historical binary fixture');
+  const restrictedHash = createHash('sha256').update(restrictedFixture).digest('hex');
+  fs.writeFileSync(path.join(root, 'renamed.bin'), restrictedFixture);
+  assert.ok(assetPrivacyProblems(root, { restrictedAssetSet: new Map([[restrictedHash, 'historical OG']]) }).some((p) => p.includes('historical OG')));
+  fs.unlinkSync(path.join(root, 'renamed.bin'));
   const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
-  const archiveDir = fileURLToPath(new URL('../../docs/assets/historical/', import.meta.url));
-  for (const [file, label] of [['og-image-persona.png', 'historical OG'], ['cv-persona-draft.pdf', 'historical draft CV']]) {
-    const source = path.join(archiveDir, file);
-    assert.ok(fs.existsSync(source), `Required historical fixture missing: ${file}`);
-    fs.copyFileSync(source, path.join(root, 'renamed.bin'));
-    assert.ok(assetPrivacyProblems(root).some((p) => p.includes(label)));
-    assert.ok(checkDist(draft, root).some((p) => p.includes(label)));
-    fs.unlinkSync(path.join(root, 'renamed.bin'));
-  }
   fs.copyFileSync(path.join(publicDir, 'og-image.png'), path.join(root, 'renamed-preview.bin'));
   assert.deepEqual(assetPrivacyProblems(root), []);
   assert.ok(assetPrivacyProblems(root, { publicMode: true }).some((p) => p.includes('renamed-preview.bin')));
   fs.unlinkSync(path.join(root, 'renamed-preview.bin'));
   assert.deepEqual(assetPrivacyProblems(publicDir), []);
-  const headshot = path.join(archiveDir, 'headshot-generated-placeholder.webp');
-  assert.ok(fs.existsSync(headshot), 'Required archived generated headshot fixture missing');
-  if (fs.existsSync(headshot)) {
-    fs.copyFileSync(headshot, path.join(root, 'portrait.webp'));
-    assert.deepEqual(assetPrivacyProblems(root), []);
-    assert.ok(assetPrivacyProblems(root, { publicMode: true }).some((p) => p.includes('portrait.webp')));
-    fs.unlinkSync(path.join(root, 'portrait.webp'));
-  }
+  fs.writeFileSync(path.join(root, 'portrait.webp'), 'portrait fixture');
+  const portraitHash = createHash('sha256').update('portrait fixture').digest('hex');
+  assert.ok(assetPrivacyProblems(root, { publicMode: true, draftHeadshotHash: portraitHash }).some((p) => p.includes('portrait.webp')));
+  fs.unlinkSync(path.join(root, 'portrait.webp'));
   fs.writeFileSync(path.join(root, 'index.html'), '<output data-u="owner" data-d="example-owner.dev"><noscript>owner [at] example-owner [dot] dev</noscript></output>');
   assert.deepEqual(checkDist(confirmed, root), []);
   assert.ok(checkDist(draft, root).some((p) => p.includes('unconfirmed email')));

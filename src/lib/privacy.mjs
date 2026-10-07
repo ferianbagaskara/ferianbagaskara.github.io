@@ -4,10 +4,11 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 
 // Fingerprints keep known unsafe binaries detectable after a rename or copy.
-const restrictedAssets = new Map([
-  ['5ad0f3d9d2a2363016ae5d27d91b2b5ed0651be5796e535b5984da70b458d1e3', 'historical OG image'],
-  ['838b2193cb74ded3117077d29c49a5fb964ecc32fdafa2e0de3d125bf40af4a2', 'historical draft CV'],
+export const RESTRICTED_ASSET_FINGERPRINTS = Object.freeze([
+  Object.freeze({ sha256: '5ad0f3d9d2a2363016ae5d27d91b2b5ed0651be5796e535b5984da70b458d1e3', label: 'historical OG image' }),
+  Object.freeze({ sha256: '838b2193cb74ded3117077d29c49a5fb964ecc32fdafa2e0de3d125bf40af4a2', label: 'historical draft CV' }),
 ]);
+const restrictedAssets = new Map(RESTRICTED_ASSET_FINGERPRINTS.map(({ sha256, label }) => [sha256, label]));
 const draftHeadshot = '502d81587eb7029ff5eb7575f244860adfcc2dc4f0dae28560ff5a49abf61b37';
 // Ferian OG preview visibly carries a draft label; a rename cannot make it final.
 const draftOg = '3d2d007a8c29339fc433d7aa80c0694615ae597d9253e8c56e12f6192524623e';
@@ -24,7 +25,7 @@ export function contentPrivacyProblems(site) {
   if (/placeholder|draft/i.test(site.profile.cvUrl)) problems.push('Do not link a draft CV; leave cvUrl empty until the final PDF is confirmed.');
   return problems;
 }
-export function assetPrivacyProblems(root, { publicMode = false } = {}) {
+export function assetPrivacyProblems(root, { publicMode = false, restrictedAssetSet = restrictedAssets, draftHeadshotHash = draftHeadshot, draftOgHash = draftOg } = {}) {
   const problems = [];
   if (!fs.existsSync(root)) return problems;
   function walk(dir) {
@@ -34,8 +35,8 @@ export function assetPrivacyProblems(root, { publicMode = false } = {}) {
       if (entry.isSymbolicLink()) { problems.push(`${rel}: symlinks are not allowed in published assets`); continue; }
       if (entry.isDirectory()) { walk(file); continue; }
       const digest = createHash('sha256').update(fs.readFileSync(file)).digest('hex');
-      if (restrictedAssets.has(digest)) problems.push(`${rel}: contains ${restrictedAssets.get(digest)}; keep it outside published directories`);
-      if (publicMode && (digest === draftHeadshot || digest === draftOg || /(?:draft|placeholder)/i.test(rel))) problems.push(`${rel}: draft asset must not be included in public mode`);
+      if (restrictedAssetSet.has(digest)) problems.push(`${rel}: contains ${restrictedAssetSet.get(digest)}; keep it outside published directories`);
+      if (publicMode && (digest === draftHeadshotHash || digest === draftOgHash || /(?:draft|placeholder)/i.test(rel))) problems.push(`${rel}: draft asset must not be included in public mode`);
     }
   }
   walk(root);
