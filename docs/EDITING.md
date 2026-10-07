@@ -18,8 +18,9 @@ those assets manually using the checklist below.
    not introduce unsupported claims or disclose NDA/private material.
 3. Update each affected asset manually, or record it as pending in
    `portfolio-docs/08-rencana-pengembangan.md` with the affected field/path and
-   missing information. Keep `profile.cvUrl: ""` until a final PDF is confirmed.
-   If an active CV becomes stale, clear its URL until the replacement is reviewed.
+   missing information. `profile.cvUrl` remains a dormant compatibility field;
+   this revision has no CV UI, and the field stays empty until a final PDF is
+   confirmed. If an active CV becomes stale, clear its URL until the replacement is reviewed.
    Clear `settings.ogImageConfirmed` whenever facts shown in the OG change.
    Update and visually review the bitmap before setting it true. Its metadata URL
    requires both this flag and a confirmed `settings.siteUrl`; a URL change alone
@@ -46,7 +47,7 @@ Only update items affected by the content change.
 | --- | --- | --- |
 | Name, headline, tagline | `public/og-image.png`; final CV under `public/cv/`; identity mentions in `README.md` and `docs/EDITING.md` if present | Recreate the OG bitmap and revise the final CV from confirmed YAML. The site's title, description, OG text, and image alt text already use `profile` in `src/layouts/BaseLayout.astro`. |
 | Certification, experience, project, availability, location | Final CV under `public/cv/`; `public/og-image.png` if it includes that text | Update only the details shown in each asset. Preserve separate on-prem/cloud periods and NDA/private-code wording. |
-| Confirmed email / LinkedIn / site URL | Final CV; OG if it prints a contact or URL; `contact` / `settings.siteUrl` in YAML | Review every printed address before enabling it. Do not copy historical persona contacts. |
+| Confirmed email / LinkedIn / site URL | Final CV (if one is prepared); OG if it prints a contact or URL; `contact` / `settings.siteUrl` in YAML | Review every printed address before enabling it. Do not copy historical persona contacts. LinkedIn replaces the CV control in the current sidebar. |
 | New final CV | `public/cv/<final-file>.pdf`; `profile.cvUrl` | Open and verify the PDF before setting the URL. Remove superseded public copies. A renamed old draft is not a final CV. |
 | OG replacement | `public/og-image.png`; image path and dimensions in `src/layouts/BaseLayout.astro` | Keep the expected 1200×630 PNG/path, or update its metadata references if those change. Do not insert historical bytes under a new name. |
 | Confirmed portrait | `public/img/<photo>`; `profile.headshot` | Replace the generated placeholder with a reviewed real photo, then remove unused draft copies before public mode. |
@@ -77,13 +78,16 @@ superseded public files in the same change.
 ## Filling in placeholders
 
 Empty optional links show a placeholder or are hidden by `hidePlaceholders`.
-Email actions stay absent until the email is confirmed.
+Email actions stay absent until the email is confirmed. For the current revision,
+email and LinkedIn were explicitly confirmed by Ferian; keep those values intact
+unless Ferian supplies a change. Four Credly badge links are mapped below. Their
+credential dates remain pending confirmation.
 
 | What | Key in `site.yaml` | What to put |
 | --- | --- | --- |
-| Email | `contact.emailUser`, `contact.emailDomain`, `contact.emailConfirmed` | Keep confirmation false until Ferian supplies the real address. Set both parts and confirmation together only after review. The schema defaults confirmation to false when omitted. |
-| LinkedIn | `contact.linkedinUrl` | Confirmed full LinkedIn profile URL; otherwise `""`. |
-| Credly badges | `certifications[].credlyUrl` | Ask Ferian for the direct badge URL for that credential and verify it identifies the matching badge. Until confirmed, keep `""`; do not create a placeholder link. |
+| Email | `contact.emailUser`, `contact.emailDomain`, `contact.emailConfirmed` | Current confirmed address is `ferianbagaskara@gmail.com`; keep its parts and confirmation together. For any replacement, confirm with Ferian before setting the flag. The schema defaults confirmation to false when omitted. |
+| LinkedIn | `contact.linkedinUrl` | Current confirmed profile: `https://www.linkedin.com/in/ferianbagaskara/`. |
+| Credly badges | `certifications[].credlyUrl` | Use the verified public URLs mapped to each credential in `site.yaml`; do not substitute earner URLs or guess a badge ID. |
 | Credential dates | `certifications[].datesConfirmed`, `issued`, `expires` | Confirm Issued and whether an Expires date exists for each credential with Ferian. Keep `datesConfirmed: false` and show pending text while either fact is unknown. Enter confirmed dates as `Mon YYYY`; represent no expiry only after confirmation, without inventing a date or claiming active status. If a confirmed credential has no expiry, update the schema and card display to represent that state explicitly. Overview still uses `featured` / `short` for a brief credential summary; full credential details appear in the cards below. |
 | OG metadata | `settings.ogImageConfirmed` | Keep false for stale/draft artwork; set true only after manual review against current YAML. A confirmed site URL is also required. |
 | CV (PDF) | `profile.cvUrl` | `""` until the final confirmed PDF is in `public/cv/`, then `/cv/<final-file>.pdf`. |
@@ -95,9 +99,10 @@ dates to confirmed values. A nonempty `credlyUrl` is a confirmed badge URL and
 enables one ordinary verification link independently of date confirmation. Do
 not infer active credential status.
 
-A nonempty final `profile.cvUrl` enables ordinary PDF links in Overview and
-Contact, including without JavaScript, and replaces the pending CV text. Draft
-status remains while `settings.noindex` is true, even when final data arrives.
+A nonempty `profile.cvUrl` is retained for compatibility but is not rendered by
+the current UI. Draft status remains while `settings.noindex` is true, even when
+confirmed contact and badge data are present. Headings, subtitle, and body use
+the self-hosted Inter family.
 Project `detailSummary` / `detailText` hold optional confirmed disclosure copy;
 `role`, `problem`, and `outcome` always remain visible.
 Experience/track periods are text; keep their confirmed wording. The current cloud track uses `2025-present` and the overall role uses `2022–present`.

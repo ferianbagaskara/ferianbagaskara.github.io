@@ -13,14 +13,14 @@ const { settings, profile, contact, certifications, experience, projects } = sit
 const hide = settings.hidePlaceholders;
 ---
 <BaseLayout settings={settings} profile={profile}>
-  <DocumentationLayout profile={profile}>
+  <DocumentationLayout profile={profile} linkedinUrl={contact.linkedinUrl}>
     <div id="overview" aria-labelledby="hero-name" tabindex="-1">
-      <Hero profile={profile} draft={settings.noindex} contactPending={!contact.emailConfirmed} certifications={certifications} focusAreas={site.focusAreas} />
+      <Hero profile={profile} draft={settings.noindex} certifications={certifications} focusAreas={site.focusAreas} />
     </div>
     <Experience experience={experience} />
     <Projects projects={projects} />
     <Certifications certifications={certifications} hide={hide} />
-    <Contact contact={contact} availability={profile.availability} cvUrl={profile.cvUrl} hide={hide} />
+    <Contact contact={contact} availability={profile.availability} hide={hide} />
     <Footer slot="footer" name={profile.name} headline={profile.headline} />
   </DocumentationLayout>
 </BaseLayout>

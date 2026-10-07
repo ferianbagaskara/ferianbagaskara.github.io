@@ -25,10 +25,10 @@ profile:
 
 contact:
   # Unconfirmed parts never create actions; confirmed parts have a human-readable noscript fallback.
-  emailConfirmed: false
-  emailUser: placeholder
-  emailDomain: invalid.invalid
-  linkedinUrl: ""        # PLACEHOLDER: e.g. https://www.linkedin.com/in/your-name
+  emailConfirmed: true
+  emailUser: ferianbagaskara
+  emailDomain: gmail.com
+  linkedinUrl: "https://www.linkedin.com/in/ferianbagaskara/"
   # Optional line above the contact buttons; leave "" to show just "Contact".
   heading: "Interested in my cloud networking experience? Get in touch."
 
@@ -41,14 +41,14 @@ certifications:
     issued: Aug 2026
     expires: Aug 2029
     kind: certification
-    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+    credlyUrl: "https://www.credly.com/badges/607fe779-6e4a-497d-b19f-d58e037cdae0"
   - name: AWS Application Networking – Demonstrated
     datesConfirmed: false   # Source dates are provisional; do not display until verified.
     issuer: Amazon Web Services
     issued: Aug 2026
     expires: Aug 2027
     kind: microcredential   # hands-on microcredential, styled distinctly
-    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+    credlyUrl: "https://www.credly.com/badges/330e1144-c92f-4f96-ab3d-862a4953e6a6"
   - name: AWS Certified Solutions Architect – Associate
     short: AWS Solutions Architect Associate      # optional shorter name for the hero line
     featured: true       # historical optional field; design C has no hero credential line
@@ -57,7 +57,7 @@ certifications:
     issued: Feb 2026
     expires: Feb 2029
     kind: certification
-    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+    credlyUrl: "https://www.credly.com/badges/80214bb3-e168-43c2-928d-c05558948871"
   - name: Cisco Certified Network Associate (CCNA)
     short: CCNA      # optional shorter name for the hero line
     featured: true       # historical optional field; design C has no hero credential line
@@ -66,7 +66,7 @@ certifications:
     issued: May 2024
     expires: May 2027
     kind: certification
-    credlyUrl: ""        # PLACEHOLDER: https://www.credly.com/badges/...
+    credlyUrl: "https://www.credly.com/badges/2eb13b9d-2e2c-4de3-9850-d775ed45384e"
 
 experience:
   - role: Network & Cloud Network Engineer

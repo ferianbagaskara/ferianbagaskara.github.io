@@ -3,8 +3,8 @@
 import Icon from './Icon.astro';
 import { noJsEmail } from '../lib/format';
 import type { Site } from '../lib/site';
-interface Props { contact: Site['contact']; availability: string; cvUrl: string; hide: boolean }
-const { contact, availability, cvUrl, hide } = Astro.props;
+interface Props { contact: Site['contact']; availability: string; hide: boolean }
+const { contact, availability, hide } = Astro.props;
 const emailConfirmed = contact.emailConfirmed === true;
 ---
 <section id="contact" class="contact" aria-labelledby="h-contact" tabindex="-1">
@@ -32,7 +32,6 @@ const emailConfirmed = contact.emailConfirmed === true;
         {contact.linkedinUrl
           ? <a class="soc-link" href={contact.linkedinUrl}><Icon name="linkedin" />LinkedIn</a>
           : null}
-        {cvUrl && <p><a href={cvUrl}>Download CV (PDF)</a></p>}
       </div>
     </div>
   </div>

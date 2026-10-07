@@ -2,10 +2,10 @@
 import Icon from './Icon.astro';
 import type { Site } from '../lib/site';
 interface Props {
-  profile: Site['profile']; draft: boolean; contactPending: boolean;
+  profile: Site['profile']; draft: boolean;
   certifications: Site['certifications']; focusAreas: Site['focusAreas'];
 }
-const { profile, draft, contactPending, certifications, focusAreas } = Astro.props;
+const { profile, draft, certifications, focusAreas } = Astro.props;
 const featured = certifications.filter((cert) => cert.featured).slice(0, 4);
 ---
 <section id="hero" class="hero" aria-labelledby="hero-name">
@@ -26,8 +26,8 @@ const featured = certifications.filter((cert) => cert.featured).slice(0, 4);
       <h2>Core Focus</h2>
       <ul>{focusAreas.map((focus) => <li><Icon name={focus.icon} size={30} /><h3>{focus.title}</h3><p>{focus.description}</p></li>)}</ul>
     </div>}
-    <div class="overview-actions"><a class="overview-contact" href="#contact"><Icon name="mail" />Contact me</a>{profile.cvUrl && <a href={profile.cvUrl}><Icon name="download" />Download CV</a>}
-      {draft && <p class="hero-draft-status">{contactPending && !profile.cvUrl ? 'Draft — contact details and CV pending.' : 'Draft — pending final review.'}</p>}
+    <div class="overview-actions"><a class="overview-contact" href="#contact"><Icon name="mail" />Contact me</a>
+      {draft && <p class="hero-draft-status">Draft — pending final review.</p>}
     </div>
   </div>
 </section>

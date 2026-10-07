@@ -4,8 +4,8 @@ import '../styles/documentation.css';
 import Icon from '../components/Icon.astro';
 import type { IconName } from '../components/Icon.astro';
 import type { Site } from '../lib/site';
-interface Props { profile: Site['profile'] }
-const { profile } = Astro.props;
+interface Props { profile: Site['profile']; linkedinUrl: Site['contact']['linkedinUrl'] }
+const { profile, linkedinUrl } = Astro.props;
 const role = profile.headline.split('|')[0].trim();
 const sections: [string, string, IconName][] = [
   ['overview', 'Overview', 'home'],
@@ -23,9 +23,7 @@ const sections: [string, string, IconName][] = [
       <nav class="documentation-nav" aria-label="Sections">
         <ul>{sections.map(([id, label, icon]) => <li><a href={`#${id}`}><Icon name={icon} size={19} /><span>{label}</span></a></li>)}</ul>
       </nav>
-      <div class="sidebar-cv">
-        {profile.cvUrl ? <a class="sidebar-cv-link" href={profile.cvUrl}><Icon name="download" />Download CV</a> : <p class="sidebar-cv-pending"><Icon name="download" />CV coming soon</p>}
-      </div>
+      {linkedinUrl && <div class="sidebar-social"><a class="sidebar-linkedin-link" href={linkedinUrl}><Icon name="linkedin" />LinkedIn</a></div>}
       <div class="sidebar-location"><Icon name="globe" size={21} /><div><p>{profile.location}</p><p>{profile.availability}</p></div></div>
     </aside>
     <div class="documentation-body">

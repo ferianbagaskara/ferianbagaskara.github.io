@@ -1,7 +1,6 @@
 /* Layout C shell only; component content/presentation is handled separately. */
 html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation {
-  --serif: Georgia, "Times New Roman", serif;
   background: var(--bg);
   font-size: 1rem;
   line-height: 1.65;
@@ -76,11 +75,13 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
   padding-block: 0;
   gap: 1.5rem;
 }
-.documentation h1,
-.documentation h2 {
-  font-family: var(--serif);
-  font-weight: 400;
+.documentation :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--sans);
+  font-weight: 600;
 }
+.documentation-name,
+.documentation .mobile-identity { font-family: var(--sans); }
+.documentation .label-sm { font-family: var(--sans); }
 .documentation h1 { font-size: 2.125rem; line-height: 1.15; }
 .documentation h2 { font-size: 1.5rem; line-height: 1.25; }
 .documentation .headline { font-size: 1.125rem; line-height: 1.4; }
@@ -92,7 +93,6 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .hero .location { font: inherit; color: var(--muted); }
 .documentation .hero .ctas { margin-top: 1rem; }
 .documentation .hero .btn { min-height: 2.75rem; padding-inline: 1rem; border-radius: 4px; }
-.documentation .hero-cv-status { margin-top: .5rem; color: var(--muted); font-size: .9375rem; }
 .documentation .hero-draft-status { margin-top: .75rem; color: var(--muted); font-size: .9375rem; }
 .documentation .hero .ctas > a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 /* Keep existing components inside the single readable content column. */
@@ -233,7 +233,7 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .overview-eyebrow { color: var(--ink); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: .7rem; }
 .documentation .overview-intro { display: grid; gap: 2rem; }
 .documentation .overview-intro h1 { font-size: clamp(2.2rem, 4vw, 3.3rem); letter-spacing: -.035em; }
-.documentation .hero .headline { font: 400 clamp(1.05rem, 1.7vw, 1.5rem)/1.4 var(--serif); margin-top: .65rem; }
+.documentation .hero .headline { font: 400 clamp(1.05rem, 1.7vw, 1.5rem)/1.4 var(--sans); margin-top: .65rem; }
 .documentation .hero .tagline { max-width: 65ch; font-size: 1rem; line-height: 1.65; margin-top: 1rem; }
 .documentation .overview-meta { display: grid; gap: 1.5rem; margin-top: 2rem; }
 .documentation .overview-location, .documentation .overview-credentials { display: flex; align-items: flex-start; gap: 1rem; font-size: .8125rem; line-height: 1.6; }
@@ -273,7 +273,7 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 .documentation .experience-track .experience-responsibilities { font-size: .9375rem; }
 .documentation .experience-tracks .experience-track + .experience-track { margin-top: 1.25rem; }
 .documentation .contact-pending, .documentation .contact-placeholders, .documentation .contact-help, .documentation .copy-status { font-size: .9375rem; }
-.documentation .overview-contact:hover, .documentation .sidebar-cv-link:hover { background: var(--ink-2); }
+.documentation .overview-contact:hover { background: var(--ink-2); }
 @media (min-width: 60rem) {
   .documentation { padding: .75rem; background: #f1f4f8; }
   .documentation-shell { grid-template-columns: 15rem minmax(0, 1fr); gap: 0; padding: 0; border: 1px solid #e8edf3; border-radius: 12px; background: white; box-shadow: 0 5px 25px #0c244806; }
@@ -284,10 +284,9 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
   .documentation-role { color: var(--muted); font-size: .8125rem; margin-top: .2rem; }
   .documentation-sidebar .documentation-nav { margin-top: 1.75rem; }
   .documentation-sidebar .documentation-nav li + li { margin-top: .25rem; }
-  .sidebar-cv { margin: 2rem .75rem 0; }
-  .sidebar-cv-link, .sidebar-cv-pending { display: flex; align-items: center; justify-content: center; gap: .6rem; padding: .7rem .8rem; font-size: .8125rem; border-radius: 6px; }
-  .sidebar-cv-link { background: var(--ink); color: white; text-decoration: none; }
-  .sidebar-cv-pending { background: #e9eef5; color: var(--muted); border: 1px dashed #c9d4e3; }
+  .sidebar-social { margin: 2rem .75rem 0; }
+  .sidebar-linkedin-link { display: flex; align-items: center; justify-content: center; gap: .6rem; min-height: 44px; padding: .7rem .8rem; font-size: .8125rem; border: 1px solid var(--line-2); border-radius: 6px; color: var(--ink); text-decoration: none; }
+  .sidebar-linkedin-link:hover { background: #eaf0fa; }
   .sidebar-location { display: flex; gap: .8rem; margin: 3rem .75rem 0; font-size: .75rem; line-height: 1.55; color: var(--muted); }
   .sidebar-location svg { flex: none; margin-top: .1rem; }
   .sidebar-location p + p { margin-top: .3rem; }
