@@ -52,7 +52,7 @@ export function checkDist(site, dist = path.resolve('dist')) {
     const noindex = /name=["']robots["'] content=["'][^"']*noindex/.test(h);
     if (noindex !== site.settings.noindex) problems.push('index.html: robots state does not match draft/public mode');
     if (/<username>|&lt;username&gt;/.test(h)) problems.push('index.html: siteUrl placeholder <username> is in the output');
-    if (/class="topo/.test(h) && !/illustrative, not actual architecture/.test(h)) problems.push('index.html: diagram shown without the "illustrative, not actual architecture" caption');
+    if (/class="topo/.test(h) && !/illustrative, not actual architecture/i.test(h)) problems.push('index.html: diagram shown without the "illustrative, not actual architecture" caption');
     if (site.contact.emailConfirmed) {
       const expected = `${site.contact.emailUser} [at] ${site.contact.emailDomain.replace(/\./g, ' [dot] ')}`;
       if (!h.includes(`<noscript>${expected}</noscript>`)) problems.push('index.html: confirmed email fallback missing or inconsistent with content');
