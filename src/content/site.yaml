@@ -16,6 +16,8 @@ settings:
 
 profile:
   name: Ferian Bagaskara
+  heroTitle: Build. Connect. Operate.
+  perspective: Different environments. One bigger perspective.
   headline: Cloud Network Engineer | Hybrid & Multi-Cloud Networking
   tagline: >-
     I work on networks that connect on-prem data centers, AWS, and Google Cloud.
@@ -116,6 +118,21 @@ projects:
     tags: [Python, SolarWinds, SQL Server, Grafana, Alerting]
     detailSummary: Data pipeline details
     detailText: ping + SolarWinds (SQL Server) → Python processing → database → Grafana dashboards and alerts
+
+# Overview focus areas summarize confirmed experience/projects/certifications.
+focusAreas:
+  - title: Enterprise Networking
+    description: On-prem network engineering since 2022.
+    icon: server
+  - title: Cloud Networking
+    description: AWS design and implementation; Google Cloud implementation since 2025.
+    icon: cloud
+  - title: Network Observability
+    description: Python pipelines, Grafana dashboards, and alerting.
+    icon: chart
+  - title: Continuous Learning
+    description: Networking certifications and hands-on practice.
+    icon: book
 
 # Skills are drawn only from the confirmed projects and certs above.
 skills:

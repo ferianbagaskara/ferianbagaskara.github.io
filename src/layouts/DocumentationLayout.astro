@@ -1,30 +1,39 @@
 ---
 // Documentation shell. Content and identity remain supplied by the existing site data.
 import '../styles/documentation.css';
-interface Props { name: string }
-const { name } = Astro.props;
-const sections = [
-  ['overview', 'Overview'],
-  ['experience', 'Experience'],
-  ['projects', 'Projects'],
-  ['certifications', 'Certifications'],
-  ['contact', 'Contact'],
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../components/Icon.astro';
+import type { Site } from '../lib/site';
+interface Props { profile: Site['profile'] }
+const { profile } = Astro.props;
+const role = profile.headline.split('|')[0].trim();
+const sections: [string, string, IconName][] = [
+  ['overview', 'Overview', 'home'],
+  ['experience', 'Experience', 'briefcase'],
+  ['projects', 'Projects', 'code'],
+  ['certifications', 'Certifications', 'shield'],
+  ['skills', 'Skills', 'chart'],
+  ['contact', 'Contact', 'mail'],
 ];
 ---
 <div class="documentation">
   <a class="skip-link btn btn-primary" href="#main">Skip to content</a>
   <div class="documentation-shell">
     <aside class="documentation-sidebar" aria-label="Portfolio navigation">
-      <p class="documentation-name">{name}</p>
+      <div class="sidebar-identity"><p class="documentation-name">{profile.name}</p><p class="documentation-role">{role}</p></div>
       <nav class="documentation-nav" aria-label="Sections">
-        <ul>{sections.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul>
+        <ul>{sections.map(([id, label, icon]) => <li><a href={`#${id}`}><Icon name={icon} size={19} /><span>{label}</span></a></li>)}</ul>
       </nav>
+      <div class="sidebar-cv">
+        {profile.cvUrl ? <a class="sidebar-cv-link" href={profile.cvUrl}><Icon name="download" />Download CV</a> : <p class="sidebar-cv-pending"><Icon name="download" />CV coming soon</p>}
+      </div>
+      <div class="sidebar-location"><Icon name="globe" size={21} /><div><p>{profile.location}</p><p>{profile.availability}</p></div></div>
     </aside>
     <div class="documentation-body">
       <details class="documentation-mobile-sections">
-        <summary>Sections</summary>
+        <summary><span class="mobile-identity">{profile.name}<small>{role}</small></span><span class="mobile-menu-label"><Icon name="menu" />Sections</span></summary>
         <nav class="documentation-nav" aria-label="Sections">
-          <ul>{sections.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ul>
+          <ul>{sections.map(([id, label, icon]) => <li><a href={`#${id}`}><Icon name={icon} size={19} /><span>{label}</span></a></li>)}</ul>
         </nav>
       </details>
       <main id="main" tabindex="-1"><slot /></main>

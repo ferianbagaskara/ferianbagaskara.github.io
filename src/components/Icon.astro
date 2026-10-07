@@ -1,10 +1,16 @@
 ---
 // Decorative inline SVG icons. Always aria-hidden and not focusable.
-export type IconName = 'mail' | 'download' | 'linkedin' | 'menu' | 'close' | 'bank' | 'server' | 'cloud' | 'lock' | 'code' | 'copy' | 'check' | 'globe' | 'badge' | 'brand';
+export type IconName = 'mail' | 'download' | 'linkedin' | 'menu' | 'close' | 'bank' | 'server' | 'cloud' | 'lock' | 'code' | 'copy' | 'check' | 'globe' | 'badge' | 'brand' | 'home' | 'briefcase' | 'pin' | 'shield' | 'chart' | 'book';
 interface Props { name: IconName; size?: number; class?: string }
 const { name, size, class: cls } = Astro.props;
 const st = 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 const paths: Record<IconName, [number, string, string?]> = {
+  home: [20, `<g ${st}><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></g>`],
+  briefcase: [20, `<g ${st}><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V3h8v4M3 12a20 20 0 0 0 18 0M12 11v3"/></g>`],
+  pin: [24, `<g ${st}><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></g>`],
+  shield: [24, `<g ${st}><path d="M12 3 21 7v6c0 5-9 9-9 9s-9-4-9-9V7zM8 12l3 3 5-6"/></g>`],
+  chart: [24, `<g ${st}><path d="M4 21h17M6 17V9h3v8M12 17V6h3v11M18 17V3h3v14"/></g>`],
+  book: [24, `<g ${st}><path d="M12 5v16M12 5C8 2 4 3 2 4v15c4-1 7-1 10 2 3-3 6-3 10-2V4c-2-1-6-2-10 1z"/></g>`],
   mail: [18, `<g ${st}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></g>`],
   download: [18, `<path ${st} d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/>`],
   linkedin: [18, `<path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5c0-1.2-.02-2.75-1.68-2.75-1.68 0-1.94 1.3-1.94 2.66V21h-4z"/>`],

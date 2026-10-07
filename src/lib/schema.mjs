@@ -57,6 +57,8 @@ export const siteSchema = z.object({
   profile: z.object({
     name: text(60),
     headline: text(80),
+    heroTitle: optionalText(60),
+    perspective: optionalText(120),
     tagline: text(320),
     availability: text(60),
     location: optionalText(40),
@@ -79,6 +81,11 @@ export const siteSchema = z.object({
     tracks: z.array(track).max(4).default([]),
   }).strict()).min(1).max(5),
   projects: z.array(project).min(1).max(6),
+  focusAreas: z.array(z.object({
+    title: text(60),
+    description: text(140),
+    icon: z.enum(['server', 'cloud', 'chart', 'book']),
+  }).strict()).max(4).default([]),
   skills: z.array(z.object({ group: text(60), items: z.array(text(60)).min(1).max(20) }).strict()).min(1).max(6),
 }).strict();
 

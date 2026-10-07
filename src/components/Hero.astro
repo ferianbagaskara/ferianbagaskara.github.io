@@ -1,26 +1,35 @@
 ---
-// Compact overview content; credential details live in the Certifications section.
 import Icon from './Icon.astro';
 import type { Site } from '../lib/site';
-interface Props { profile: Site['profile']; draft: boolean; contactPending: boolean }
-const { profile, draft, contactPending } = Astro.props;
+interface Props {
+  profile: Site['profile']; draft: boolean; contactPending: boolean;
+  certifications: Site['certifications']; focusAreas: Site['focusAreas'];
+}
+const { profile, draft, contactPending, certifications, focusAreas } = Astro.props;
+const featured = certifications.filter((cert) => cert.featured).slice(0, 4);
 ---
 <section id="hero" class="hero" aria-labelledby="hero-name">
   <div class="wrap">
-    <div>
-      <h1 id="hero-name">{profile.name}</h1>
-      {draft && <p class="hero-draft-status">{contactPending && !profile.cvUrl
-        ? 'Draft portfolio — contact details and CV pending.'
-        : 'Draft portfolio — pending final review.'}</p>}
-      <p class="headline">{profile.headline}</p>
-      <p class="tagline">{profile.tagline}</p>
-      <div class="meta-row">
-        {profile.location && <p class="location"><Icon name="globe" />{profile.location}</p>}
+    <p class="overview-eyebrow">Overview</p>
+    <div class="overview-intro">
+      <div>
+        <h1 id="hero-name"><span class="sr-only">{profile.name} — </span>{profile.heroTitle || profile.name}</h1>
+        <p class="headline">{profile.headline}</p>
+        <p class="tagline">{profile.tagline}</p>
       </div>
-      <div class="ctas"><a href="#contact">Contact</a></div>
-      {profile.cvUrl
-        ? <p class="hero-cv-status"><a href={profile.cvUrl}>Download CV (PDF)</a></p>
-        : draft && <p class="hero-cv-status">CV pending final details.</p>}
+      <aside class="overview-note" aria-label="Network environments"><Icon name="code" size={38} /><p>On-prem.<br />AWS.<br />Google Cloud.</p></aside>
+    </div>
+    <div class="overview-meta">
+      <div class="overview-location"><Icon name="pin" size={31} /><div><p>{profile.location}</p><p>{profile.availability}</p></div></div>
+      <a class="overview-credentials" href="#certifications"><Icon name="shield" size={34} /><span>{featured.map((cert) => <span>{cert.short || cert.name}</span>)}<span class="credential-link-label">View credentials →</span></span></a>
+    </div>
+    {focusAreas.length > 0 && <div class="overview-focus">
+      <h2>Core Focus</h2>
+      <ul>{focusAreas.map((focus) => <li><Icon name={focus.icon} size={30} /><h3>{focus.title}</h3><p>{focus.description}</p></li>)}</ul>
+    </div>}
+    {profile.perspective && <p class="overview-perspective">“{profile.perspective}”</p>}
+    <div class="overview-actions"><a class="overview-contact" href="#contact"><Icon name="mail" />Contact me</a>{profile.cvUrl && <a href={profile.cvUrl}><Icon name="download" />Download CV</a>}
+      {draft && <p class="hero-draft-status">{contactPending && !profile.cvUrl ? 'Draft — contact details and CV pending.' : 'Draft — pending final review.'}</p>}
     </div>
   </div>
 </section>
