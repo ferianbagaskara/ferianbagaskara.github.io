@@ -292,3 +292,147 @@ html:has(.documentation) { scroll-padding-top: 0; scroll-behavior: auto; }
 }
 @media (prefers-reduced-motion: no-preference) { .documentation .documentation-nav a, .documentation .overview-contact { transition: background-color .15s ease; } }
 @media (min-width: 60rem) and (max-height: 30rem) { .documentation-sidebar { position: static; min-height: 0; } }
+
+/* Neumorphic surfaces: restrained depth, with borders and visible control states as fallbacks. */
+.documentation {
+  background: var(--neu-canvas);
+  --line: #e2e7ef;
+  --line-2: #d2dae6;
+}
+.documentation-shell {
+  background: var(--neu-canvas);
+  border: 1px solid #e6eaf1;
+  box-shadow: var(--neu-raised);
+}
+.documentation-sidebar {
+  background: var(--neu-surface);
+}
+.documentation .documentation-nav a {
+  border: 1px solid transparent;
+  min-height: 44px;
+  transition: background-color .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.documentation .documentation-nav a:hover {
+  background: var(--neu-surface);
+  border-color: #e9edf4;
+  box-shadow: var(--neu-raised-small);
+}
+.documentation .documentation-nav a[aria-current="location"] {
+  background: var(--neu-canvas);
+  border-color: #e6eaf1;
+  box-shadow: var(--neu-inset);
+}
+.documentation .documentation-mobile-sections summary {
+  border: 1px solid #e5eaf1;
+  border-radius: 10px;
+  padding-inline: .875rem;
+  background: var(--neu-canvas);
+  box-shadow: var(--neu-raised-small);
+}
+.documentation .documentation-mobile-sections[open] summary {
+  box-shadow: var(--neu-inset);
+}
+.documentation .mobile-identity { min-width: 0; }
+.documentation .mobile-menu-label { flex: none; white-space: nowrap; }
+.documentation #overview {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e4e9f1;
+  border-radius: 12px;
+  background: var(--neu-surface);
+  box-shadow: var(--neu-raised-small);
+}
+.documentation .hero,
+.documentation .contact { background: transparent; }
+.documentation .experience-entry {
+  padding: 1.25rem;
+  border: 1px solid #e4e9f1;
+  border-radius: 10px;
+  background: var(--neu-surface);
+  box-shadow: var(--neu-raised-small);
+}
+.documentation .experience-entry + .experience-entry {
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e4e9f1;
+}
+.documentation .hero .overview-contact,
+.documentation .contact .js-mail,
+.documentation .sidebar-linkedin-link,
+.documentation .soc-link,
+.documentation .copy-btn {
+  border: 1px solid #d8e0eb;
+  box-shadow: var(--neu-raised-small);
+}
+.documentation .overview-contact:hover,
+.documentation .sidebar-linkedin-link:hover,
+.documentation .soc-link:hover,
+.documentation .copy-btn:hover {
+  border-color: #cbd6e5;
+  box-shadow: var(--neu-raised);
+}
+.documentation .overview-contact:active,
+.documentation .sidebar-linkedin-link:active,
+.documentation .soc-link:active,
+.documentation .copy-btn:active {
+  box-shadow: var(--neu-inset);
+}
+.documentation :is(.employer, .proj, .cert, .contact-card) {
+  border: 1px solid #e4e9f1;
+  background: var(--neu-surface);
+  box-shadow: var(--neu-raised-small);
+}
+.documentation .contact-card {
+  padding: 1.25rem;
+  border-radius: 10px;
+}
+.documentation .cert.micro {
+  background: #f1f4f8;
+  border-style: dashed;
+  box-shadow: 3px 3px 8px #e0e5ec,-3px -3px 8px #fff;
+}
+.documentation .emp-head { background: #f1f4f8; }
+.documentation .copyrow output {
+  background: var(--neu-canvas);
+  box-shadow: var(--neu-inset);
+}
+.documentation :focus-visible {
+  outline: 3px solid #1457c5;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+.documentation [tabindex="-1"]:focus {
+  outline: 3px solid #1457c5;
+  outline-offset: 3px;
+}
+@media (min-width: 60rem) {
+  .documentation-shell { border-radius: 14px; }
+  .documentation #overview { margin-top: 2rem; padding: 1.75rem; }
+  .documentation-sidebar {
+    background: var(--neu-canvas);
+    border-right-color: #e2e7ef;
+    border-radius: 14px 0 0 14px;
+  }
+}
+@media (max-width: 59.98rem) {
+  .documentation-shell { border: 0; box-shadow: none; }
+  .documentation-sidebar { background: transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .documentation .documentation-nav a,
+  .documentation .overview-contact { transition: none; }
+}
+@media (forced-colors: active) {
+  .documentation-shell,
+  .documentation :is(#overview, .experience-entry, .employer, .proj, .cert, .contact-card),
+  .documentation .documentation-nav a,
+  .documentation .documentation-mobile-sections summary,
+  .documentation .hero .overview-contact,
+  .documentation .sidebar-linkedin-link,
+  .documentation .soc-link,
+  .documentation .copy-btn,
+  .documentation .copyrow output {
+    box-shadow: none;
+    border: 1px solid CanvasText;
+  }
+}

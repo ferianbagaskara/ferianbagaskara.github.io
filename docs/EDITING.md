@@ -140,3 +140,10 @@ Replace `[responsibility]` with confirmed text before uncommenting:
 - Confirmed email has a visible no-JavaScript fallback. Splitting its YAML fields
   reduces casual scraping but does not promise secrecy. Review binaries manually:
   fingerprints detect known historical bytes, not every possible stale asset.
+
+## Neumorphism styling
+
+- Shared relief colors and shadows live in `src/styles/tokens.css`; documentation UI rules live in `src/styles/documentation.css`.
+- Preserve visible focus outlines, active-link weight, native disclosure, and the mobile Sections label's `white-space: nowrap` when tuning shadows.
+- Run build/check scripts before reviewing the actual app with `astro preview`; do not use a simplified mock to confirm behavior.
+- Review screenshots and the tested scope in [NEUMORPHISM-QC.md](NEUMORPHISM-QC.md). The review gallery is [neumorphism-preview.html](neumorphism-preview.html).
