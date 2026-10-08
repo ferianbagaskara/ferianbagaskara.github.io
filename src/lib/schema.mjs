@@ -57,7 +57,6 @@ export const siteSchema = z.object({
   profile: z.object({
     name: text(60),
     headline: text(80),
-    tagline: text(320),
     availability: text(60),
     location: optionalText(40),
     headshot: emptyOr(/^\/img\/[\w.-]+\.(webp|avif|jpg|png)$/, 'Use "" or a path like /img/headshot.webp (file in public/img/)'),

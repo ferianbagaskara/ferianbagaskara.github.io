@@ -24,7 +24,6 @@ const fontCss = `@font-face{font-family:"Inter Variable";font-style:normal;font-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
-    <meta name="description" content={profile.tagline} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#ffffff" />
     <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
@@ -35,7 +34,6 @@ const fontCss = `@font-face{font-family:"Inter Variable";font-style:normal;font-
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={profile.tagline} />
     {hasConfirmedSiteUrl && <meta property="og:url" content={canonical} />}
     {hasConfirmedOgImage && <>
       <meta property="og:image:alt" content={`${profile.name}, ${profile.headline}`} />
