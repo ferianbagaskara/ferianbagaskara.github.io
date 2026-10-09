@@ -1,6 +1,6 @@
 ---
-// Footer line, no year (spec 5.14).
 interface Props { name: string; headline: string }
 const { name, headline } = Astro.props;
+const year = new Date().getFullYear();
 ---
-<footer><div class="wrap"><span>© {name} · {headline}</span></div></footer>
+<footer><div class="wrap footer-inner"><span>© {year} {name} · {headline}</span><a href="#overview">Back to top</a></div></footer>

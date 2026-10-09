@@ -11,14 +11,18 @@ const diagram = p.diagram ? [topoDesktop, topoMobile] : p.detailText ? [pipeDesk
 ---
 <article class="proj">
   <h3>{p.title}</h3>
-  {p.nda && <p class="access-note">Details under NDA</p>}
-  {p.privateCode && <p class="access-note">Private code, described only</p>}
+  {p.nda && <p class="access-note">Project details covered by NDA</p>}
+  {p.privateCode && <p class="access-note">Source code is private; workflow described below.</p>}
   <dl class="project-copy">
     <div><dt>Problem</dt><dd>{p.problem}</dd></div>
     <div><dt>Contribution</dt><dd>{p.role}</dd></div>
     <div><dt>Outcome</dt><dd>{p.outcome}</dd></div>
   </dl>
-  <Tags items={p.tags} />
+  <Tags items={p.tags.slice(0, 6)} />
+  {p.tags.length > 6 && <details class="project-tags">
+    <summary>More technologies ({p.tags.length - 6})</summary>
+    <Tags items={p.tags.slice(6)} />
+  </details>}
   {(p.detailText || diagram) && <details class="project-details" open>
     <summary>{p.detailSummary || 'Project details'}</summary>
     {p.detailText && <p class="diagram-explanation">{p.detailText}</p>}

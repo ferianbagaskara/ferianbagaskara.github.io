@@ -10,13 +10,17 @@ const email = `${contact.emailUser}@${contact.emailDomain}`;
     <div class="sh"><h2 id="h-contact">Contact</h2></div>
     <div class="contact-layout">
       <div>{contact.heading && <p class="contact-lead">{contact.heading}</p>}<p class="contact-availability">{availability}</p></div>
-    <div class="contact-links">
-      {contact.emailConfirmed && <>
-        <a class="contact-action email-link" href={`mailto:${email}`}>{email}</a>
-        <div class="copyrow"><output class="sr-only" id="email-text" data-email-confirmed="true" data-u={contact.emailUser} data-d={contact.emailDomain}>{email}<noscript>{noJsEmail(contact.emailUser, contact.emailDomain)}</noscript></output><button id="copy-btn" class="copy-btn" type="button" hidden aria-label="Copy email address"><span class="lbl">Copy email</span></button></div>
-        <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
-      </>}
-      {contact.linkedinUrl && <a class="contact-action soc-link" href={contact.linkedinUrl}>LinkedIn ↗</a>}
+      <div class="contact-links">
+        {contact.emailConfirmed && <>
+          <a class="btn btn-primary email-link" href={`mailto:${email}`}>Email me</a>
+          <p class="email-address" id="email-text" data-email-confirmed="true" data-u={contact.emailUser} data-d={contact.emailDomain}>{email}<span class="sr-only"><noscript>{noJsEmail(contact.emailUser, contact.emailDomain)}</noscript></span></p>
+          <div class="contact-utilities">
+            {contact.linkedinUrl && <a class="contact-action soc-link" href={contact.linkedinUrl}>LinkedIn ↗</a>}
+            <button id="copy-btn" class="copy-btn" type="button" hidden>Copy email</button>
+            <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+          </div>
+        </>}
+        {!contact.emailConfirmed && contact.linkedinUrl && <a class="contact-action soc-link" href={contact.linkedinUrl}>LinkedIn ↗</a>}
       </div>
     </div>
   </div>

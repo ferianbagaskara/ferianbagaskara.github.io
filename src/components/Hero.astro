@@ -10,7 +10,7 @@ const { profile, draft } = Astro.props;
       <p class="role-label">{profile.roleLabel}</p>
       <h1 id="hero-name">{profile.name}</h1>
       <p class="headline">{profile.headline}</p>
-      <div class="ctas"><a class="btn btn-primary" href="#projects">View selected work</a><a class="btn btn-secondary" href="#contact">Contact me</a></div>
+      <div class="ctas"><a class="btn btn-primary" href="#projects">View selected work</a></div>
       <div class="hero-meta"><p>{profile.location}</p><p>{profile.availability}</p></div>
       {draft && <p class="hero-draft-status">Draft — pending final review.</p>}
     </div>

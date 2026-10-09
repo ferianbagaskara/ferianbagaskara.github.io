@@ -17,11 +17,11 @@ const { experience } = Astro.props;
           <p class="experience-tenure">{e.period}</p>
         </div>
         {e.tracks.length > 0 && (
-          <ul class="experience-tracks" role="list">
+          <ul class="experience-tracks" role="list" aria-label="Scope evolution">
             {e.tracks.map((t) => (
               <li class="experience-track">
                 <h4>{t.title}</h4>
-                <p class="experience-tenure">{t.period}</p>
+                <p class="experience-track-period">{t.period}</p>
                 {t.responsibilities.length > 0 && (
                   <ul class="experience-responsibilities">
                     {t.responsibilities.map((responsibility) => <li>{responsibility}</li>)}
@@ -54,7 +54,11 @@ const { experience } = Astro.props;
   .experience-tenure { color: var(--muted); font-size: .9375rem; line-height: 1.5; }
   .experience-employer { margin-top: .25rem; }
   .experience-tracks { margin-top: 1.375rem; list-style: none; }
-  h4 { font-size: 1rem; font-weight: 600; line-height: 1.65; }
+  .experience-track { position: relative; min-width: 0; margin: 0; padding: 0 1rem; border-left: 2px solid var(--line-2); }
+  .experience-track + .experience-track { margin-top: 1.125rem; }
+  .experience-track::before { position: absolute; top: .42rem; left: -5px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); content: ""; }
+  h4 { font-size: 1.0625rem; font-weight: 600; line-height: 1.5; }
+  .experience-track-period { margin-top: .25rem; color: var(--muted); font: 550 .8125rem/1.5 var(--mono); }
   .experience-responsibilities {
     margin-top: .5rem;
     padding-left: 1.25rem;
@@ -65,4 +69,11 @@ const { experience } = Astro.props;
     overflow-wrap: anywhere;
   }
   .experience-responsibilities li + li { margin-top: .25rem; }
+  @media (min-width: 768px) {
+    .experience-tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+    .experience-track + .experience-track { margin-top: 0; }
+  }
+  @media (max-width: 767.98px) {
+    .experience-tracks { margin-top: 1.125rem; }
+  }
 </style>

@@ -86,29 +86,29 @@ experience:
 
 projects:
   - title: Hybrid multi-cloud banking network
-    nda: true            # shows the "Details under NDA" badge
+    nda: true            # project details covered by NDA
     problem: >-
-      Mobile and corporate banking workloads needed active-active operation across
+      Mobile and corporate banking workloads required active-active operation across
       on-prem data centers, AWS, and Google Cloud.
     role: >-
       Designed and implemented the AWS network; implemented the Google Cloud network.
-      Work covered Direct Connect and Interconnect, VPCs, DNS, load balancers, and
-      traffic flows within and between VPCs and at ingress/egress.
     outcome: >-
-      Supported flexible cloud workload scaling and provisioning of development environments.
+      Supported flexible cloud workload scaling and development environment provisioning.
     tags: [AWS, GCP, Direct Connect, Interconnect, VPC, DNS, Load balancers, Hybrid cloud]
     detailSummary: Network scope and illustrative topology
+    detailText: >-
+      Work covered Direct Connect and Interconnect, VPCs, DNS, load balancers, and
+      traffic flows within and between VPCs and at ingress/egress.
     diagram: true        # generic topology, labelled "illustrative, not actual architecture"
   - title: Network observability pipeline
     nda: false
-    privateCode: true    # shows "Private code, described only"
+    privateCode: true    # private source code; workflow described
     problem: >-
-      The on-prem network needed consistent health visibility from ping data
+      The on-prem network needed consistent health visibility from ping
       and raw SolarWinds data.
     role: >-
-      Built a Python pipeline that processes ping data and raw SolarWinds data
-      from SQL Server, stores the results in a database, and feeds Grafana
-      dashboards with alerting.
+      Built a Python pipeline to process ping and raw SolarWinds data from SQL Server,
+      store results in a database, and feed Grafana dashboards with alerting.
     outcome: >-
       Provided dashboards and alerts for the on-prem network.
     tags: [Python, SolarWinds, SQL Server, Grafana, Alerting]

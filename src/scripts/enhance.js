@@ -11,50 +11,44 @@
     const btn = document.getElementById('copy-btn');
     const status = document.getElementById('copy-status');
     if (out && btn && status) {
-      out.textContent = addr;
-      const lbl = btn.querySelector('.lbl');
-      if (lbl) {
-        btn.hidden = false;
-        let busy = false;
-        let resetTimer;
-        const reset = () => {
-          btn.classList.remove('is-done');
-          lbl.textContent = 'Copy';
-          btn.setAttribute('aria-label', 'Copy email address');
-        };
-        btn.addEventListener('click', async () => {
-          if (busy) return;
-          busy = true;
-          clearTimeout(resetTimer);
-          reset();
-          status.textContent = '';
-          btn.setAttribute('aria-busy', 'true');
+      btn.hidden = false;
+      let busy = false;
+      let resetTimer;
+      const reset = () => {
+        btn.classList.remove('is-done');
+        btn.textContent = 'Copy email';
+        status.textContent = '';
+      };
+      btn.addEventListener('click', async () => {
+        if (busy) return;
+        busy = true;
+        clearTimeout(resetTimer);
+        reset();
+        btn.setAttribute('aria-busy', 'true');
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+          await navigator.clipboard.writeText(addr);
+          status.textContent = 'Email copied.';
+          btn.textContent = 'Copied';
+          btn.classList.add('is-done');
+          resetTimer = setTimeout(reset, 1800);
+        } catch {
+          status.textContent = 'Copy unavailable. Select the visible email address above, then copy it manually.';
+          // Select the visible text to make the manual fallback immediate. Focus stays on the button.
           try {
-            if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
-            await navigator.clipboard.writeText(addr);
-            status.textContent = 'Email copied.';
-            lbl.textContent = 'Copied';
-            btn.classList.add('is-done');
-            btn.setAttribute('aria-label', 'Email copied');
-            resetTimer = setTimeout(reset, 2000);
-          } catch {
-            status.textContent = 'Copy unavailable. Select the email address to copy it manually.';
-            // Selection assists manual copying; keep keyboard focus on the button.
-            try {
-              const selection = window.getSelection();
-              if (selection) {
-                const range = document.createRange();
-                range.selectNodeContents(out);
-                selection.removeAllRanges();
-                selection.addRange(range);
-              }
-            } catch { /* The visible address remains available for manual selection. */ }
-          } finally {
-            btn.removeAttribute('aria-busy');
-            busy = false;
-          }
-        });
-      }
+            const selection = window.getSelection();
+            if (selection && out.isConnected) {
+              const range = document.createRange();
+              range.selectNodeContents(out);
+              selection.removeAllRanges();
+              selection.addRange(range);
+            }
+          } catch { /* The visible address remains selectable with pointer or keyboard. */ }
+        } finally {
+          btn.removeAttribute('aria-busy');
+          busy = false;
+        }
+      });
     }
   }
   const disclosure = document.querySelector('.nav-disclosure');
@@ -101,7 +95,8 @@
   const update = () => {
     const height = header.getBoundingClientRect().height;
     document.documentElement.style.setProperty('--header-offset', `${height + 16}px`);
-    const current = sections.filter(section => section.getBoundingClientRect().top <= height + 80).at(-1) || sections[0];
+    const atPageEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    const current = atPageEnd ? sections.at(-1) : sections.filter(section => section.getBoundingClientRect().top <= height + 80).at(-1) || sections[0];
     if (current) activate(current.id);
   };
   new ResizeObserver(update).observe(header);

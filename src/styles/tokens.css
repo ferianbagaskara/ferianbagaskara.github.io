@@ -3,6 +3,10 @@
  --ink:#172a45;--ink-2:#30445e;--muted:#526279;--line:#c5cedb;--line-2:#a7b5c8;
  --accent:#1859bd;--accent-hover:#124795;--on-accent:#fff;
  --bg:#fff;--bg-soft:#f0f3f8;--canvas:#e9edf4;--surface-shadow:0 5px 14px rgba(25,46,76,.07);
+ /* Composition scale: readable copy, quiet metadata, compact shared surfaces. */
+ --text-body:1rem;--text-meta:.8125rem;--text-small:.75rem;
+ --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-7:28px;--space-8:32px;
+ --page-width:1240px;--section-space:28px;--surface-padding:24px;--surface-radius:10px;
  --header-offset:94px;
  --sans:"Inter Variable",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
  --mono:"JetBrains Mono Variable","JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
