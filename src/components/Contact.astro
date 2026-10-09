@@ -1,38 +1,20 @@
 ---
-// Unconfirmed contact data stays in YAML and never becomes an email action.
-import Icon from './Icon.astro';
 import { noJsEmail } from '../lib/format';
 import type { Site } from '../lib/site';
 interface Props { contact: Site['contact']; availability: string; hide: boolean }
-const { contact, availability, hide } = Astro.props;
-const emailConfirmed = contact.emailConfirmed === true;
+const { contact, availability } = Astro.props;
+const email = `${contact.emailUser}@${contact.emailDomain}`;
 ---
-<section id="contact" class="contact" aria-labelledby="h-contact" tabindex="-1">
-  <div class="wrap">
-    <div class="contact-card">
-      <div class="contact-left">
-        <h2 id="h-contact">Contact</h2>
-        {contact.heading && <p class="contact-lead">{contact.heading}</p>}
-        <p class="contact-availability">{availability}</p>
-        {emailConfirmed && <a class="btn btn-primary js-mail" hidden><Icon name="mail" />Email me</a>}
-      </div>
-      <div>
-        {!emailConfirmed && <p class="contact-pending">Contact details pending confirmation.</p>}
-        {emailConfirmed ? <>
-        <div class="label-sm" id="email-label">Email</div>
-        <div class="copyrow">
-          <output id="email-text" aria-labelledby="email-label" data-email-confirmed="true" data-u={contact.emailUser} data-d={contact.emailDomain}><noscript>{noJsEmail(contact.emailUser, contact.emailDomain)}</noscript></output>
-          <button class="copy-btn" id="copy-btn" type="button" aria-label="Copy email address" hidden>
-            <Icon name="copy" class="ic-copy" /><Icon name="check" class="ic-check" /><span class="lbl">Copy</span>
-          </button>
-        </div>
-        <p class="copy-status" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
-        <noscript><p class="contact-help">Replace [at] with @ and [dot] with . to email me.</p></noscript>
-        </> : !hide && <p class="contact-placeholders">[Email]{!contact.linkedinUrl && ' · [LinkedIn]'}</p>}
-        {contact.linkedinUrl
-          ? <a class="soc-link" href={contact.linkedinUrl}><Icon name="linkedin" />LinkedIn</a>
-          : null}
-      </div>
+<section id="contact" aria-labelledby="h-contact" tabindex="-1">
+  <div class="wrap contact-layout">
+    <div><h2 id="h-contact">Contact</h2>{contact.heading && <p class="contact-lead">{contact.heading}</p>}<p class="contact-availability">{availability}</p></div>
+    <div class="contact-links">
+      {contact.emailConfirmed && <>
+        <a class="email-link" href={`mailto:${email}`}>{email}</a>
+        <div class="copyrow"><output class="sr-only" id="email-text" data-email-confirmed="true" data-u={contact.emailUser} data-d={contact.emailDomain}>{email}<noscript>{noJsEmail(contact.emailUser, contact.emailDomain)}</noscript></output><button id="copy-btn" class="copy-btn" type="button" hidden aria-label="Copy email address"><span class="lbl">Copy email</span></button></div>
+        <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+      </>}
+      {contact.linkedinUrl && <a class="soc-link" href={contact.linkedinUrl}>LinkedIn ↗</a>}
     </div>
   </div>
 </section>

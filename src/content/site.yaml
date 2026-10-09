@@ -1,22 +1,25 @@
 # ============================================================
 #  Ferian Bagaskara portfolio: source of confirmed profile facts
 #  CV PDF / OG image updates are manual: see docs/EDITING.md.
-#  GitHub Pages serves the reviewed public draft; noindex stays enabled while placeholders remain.
+#  Indexing and the visible draft notice are separate settings.
 #  Empty optional links stay placeholders or are hidden by settings.
 # ============================================================
 
 settings:
-  # Keep true while placeholders remain, so search engines skip the draft.
+  # Indexing stays disabled until Ferian explicitly requests a change.
   noindex: true
+  # Display-only notice. R6 can hide it without enabling indexing.
+  showDraftNotice: false
   siteUrl: https://ferianbagaskara.github.io
   lang: en
   # Leave false during colleague review. At launch, true hides any link that is still "" instead of showing "coming soon".
   hidePlaceholders: false
-  ogImageConfirmed: false   # Stale draft bitmap: replace/review against current YAML before enabling.
+  ogImageConfirmed: true    # R7: reviewed 1200x630 social card matches the confirmed name and headline.
 
 profile:
   name: Ferian Bagaskara
-  headline: Hybrid and multi-cloud networking across on-prem, AWS, and GCP
+  roleLabel: Cloud Network Engineer
+  headline: Cloud network engineering across on-premises, AWS, and Google Cloud
   availability: Open to remote and international roles
   location: Based in Indonesia · Any time zone
   headshot: ""   # No portrait in design C; generated placeholder is archived outside public/.
@@ -76,11 +79,10 @@ experience:
     tracks:
       - title: On-prem network engineering
         period: 2022–present
-        # Replace this placeholder with confirmed text before uncommenting:
-        # responsibilities:
-        #   - "[responsibility]"
+        responsibilities: []
       - title: AWS and Google Cloud network architecture and engineering
         period: 2025-present
+        responsibilities: []
 
 projects:
   - title: Hybrid multi-cloud banking network

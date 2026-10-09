@@ -1,7 +1,7 @@
 ---
 // The one page. Composes the section components in fixed order. All copy comes from site.yaml.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DocumentationLayout from '../layouts/DocumentationLayout.astro';
+import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Certifications from '../components/Certifications.astro';
 import Experience from '../components/Experience.astro';
@@ -12,15 +12,17 @@ import { site } from '../lib/site';
 const { settings, profile, contact, certifications, experience, projects } = site;
 const hide = settings.hidePlaceholders;
 ---
-<BaseLayout settings={settings} profile={profile}>
-  <DocumentationLayout profile={profile} linkedinUrl={contact.linkedinUrl}>
+<BaseLayout settings={settings} profile={profile} title={`${profile.name} · ${profile.headline}`} description={`${profile.name} is a Cloud Network Engineer working across on-premises infrastructure, AWS, and Google Cloud. Explore selected networking projects and experience.`}>
+  <a class="skip-link btn btn-primary" href="#main">Skip to content</a>
+  <Header name={profile.name} />
+  <main id="main" tabindex="-1">
     <div id="overview" aria-labelledby="hero-name" tabindex="-1">
-      <Hero profile={profile} draft={settings.noindex} certifications={certifications} />
+      <Hero profile={profile} draft={settings.showDraftNotice} certifications={certifications} />
     </div>
-    <Experience experience={experience} />
     <Projects projects={projects} />
+    <Experience experience={experience} />
     <Certifications certifications={certifications} hide={hide} />
     <Contact contact={contact} availability={profile.availability} hide={hide} />
-    <Footer slot="footer" name={profile.name} headline={profile.headline} />
-  </DocumentationLayout>
+  </main>
+  <Footer name={profile.name} headline={profile.headline} />
 </BaseLayout>

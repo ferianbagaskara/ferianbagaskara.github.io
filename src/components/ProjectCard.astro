@@ -1,36 +1,31 @@
 ---
-// Keep project evidence visible; native disclosure holds supporting details.
-import Icon from './Icon.astro';
 import Tags from './Tags.astro';
 import type { Project } from '../lib/site';
 import topoDesktop from '../assets/topology-desktop.svg?raw';
 import topoMobile from '../assets/topology-mobile.svg?raw';
+import pipeDesktop from '../assets/pipeline-desktop.svg?raw';
+import pipeMobile from '../assets/pipeline-mobile.svg?raw';
 interface Props { project: Project }
 const { project: p } = Astro.props;
-const topo = topoDesktop.replace(/<svg /, '<svg class="topo topo-d" ') + topoMobile.replace(/<svg /, '<svg class="topo topo-m" ');
+const diagram = p.diagram ? [topoDesktop, topoMobile] : p.detailText ? [pipeDesktop, pipeMobile] : null;
 ---
-<article class:list={['proj', p.diagram ? 'has-diagram' : 'wide']}>
-  <div class="content">
-    <div class="titlerow">
-      <h3>{p.title}</h3>
-      {p.nda && <span class="badge"><Icon name="lock" />Details under NDA</span>}
-      {p.privateCode && <span class="badge"><Icon name="code" />Internal tool. Code is private.</span>}
-    </div>
-    <dl>
-      <div><dt>Problem</dt><dd>{p.problem}</dd></div>
-      <div><dt>Contribution</dt><dd>{p.role}</dd></div>
-      <div><dt>Outcome</dt><dd>{p.outcome}</dd></div>
-    </dl>
-    <details class="project-details">
-      <summary>{p.detailSummary || 'Project details'}</summary>
-      {p.detailText && <p>{p.detailText}</p>}
-      <Tags items={p.tags} />
-      {p.diagram && (
-        <figure>
-          <Fragment set:html={topo} />
-          <figcaption>Illustrative, not actual architecture</figcaption>
-        </figure>
-      )}
-    </details>
-  </div>
+<article class="proj">
+  <h3>{p.title}</h3>
+  {p.nda && <p class="access-note">Details under NDA</p>}
+  {p.privateCode && <p class="access-note">Private code, described only</p>}
+  <dl class="project-copy">
+    <div><dt>Problem</dt><dd>{p.problem}</dd></div>
+    <div><dt>Contribution</dt><dd>{p.role}</dd></div>
+    <div><dt>Outcome</dt><dd>{p.outcome}</dd></div>
+  </dl>
+  <Tags items={p.tags} />
+  {(p.detailText || diagram) && <details class="project-details" open>
+    <summary>{p.detailSummary || 'Project details'}</summary>
+    {p.detailText && <p class="diagram-explanation">{p.detailText}</p>}
+    {diagram && <figure>
+      <Fragment set:html={diagram[0].replace('<svg ', '<svg class="diagram diagram-desktop" ')} />
+      <Fragment set:html={diagram[1].replace('<svg ', '<svg class="diagram diagram-mobile" ')} />
+      <figcaption>Illustrative workflow, not actual production architecture.</figcaption>
+    </figure>}
+  </details>}
 </article>

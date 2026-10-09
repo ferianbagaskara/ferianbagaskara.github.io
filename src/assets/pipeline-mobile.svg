@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228 328" role="img" aria-labelledby="pipe-m-title pipe-m-desc">
+  <title id="pipe-m-title">Illustrative observability workflow</title>
+  <desc id="pipe-m-desc">Ping data and raw SolarWinds data from SQL Server are processed in Python, stored in a database, and supplied to Grafana dashboards and alerts.</desc>
+  <defs><marker id="pipe-m-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 1 9 5 0 9z" fill="#1d5fe0"/></marker></defs>
+  <g fill="none" stroke="#1d5fe0" stroke-width="2" marker-end="url(#pipe-m-arrow)"><path d="M56 64 V80 H114 V94"/><path d="M172 64 V80 H114 V94"/><path d="M114 148 V174"/><path d="M114 220 V246"/></g>
+  <g fill="#fff" stroke="#b9c0cb" stroke-width="1.2"><rect x="4" y="10" width="104" height="54" rx="6"/><rect x="120" y="10" width="104" height="54" rx="6"/><rect x="14" y="94" width="200" height="54" rx="6"/><rect x="14" y="174" width="200" height="46" rx="6"/><rect x="14" y="246" width="200" height="76" rx="6"/></g>
+  <g font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="650" fill="#14171c" text-anchor="middle"><text x="56" y="42">Ping data</text><text x="172" y="32">SolarWinds</text><text x="114" y="118">Python processing</text><text x="114" y="203">Database</text><text x="114" y="270">Grafana</text></g>
+  <g font-family="'JetBrains Mono',monospace" font-size="13" fill="#566070" text-anchor="middle"><text x="172" y="51">SQL Server</text><text x="114" y="138">process + store</text><text x="114" y="291">dashboards</text><text x="114" y="310">+ alerts</text></g>
+</svg>

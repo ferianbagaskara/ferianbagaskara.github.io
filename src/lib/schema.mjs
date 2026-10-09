@@ -40,13 +40,15 @@ const project = z.object({
   outcome: text(400),
   tags: z.array(text(40)).max(12).default([]),
   diagram: z.boolean().default(false),
-  detailSummary: text(100).optional(),
-  detailText: text(400).optional(),
+  detailSummary: z.string().trim().max(100).default(''),
+  detailText: z.string().trim().max(400).default(''),
 }).strict();
 
 export const siteSchema = z.object({
   settings: z.object({
     noindex: z.boolean(),
+    // Display-only review notice; independent of search-engine indexing.
+    showDraftNotice: z.boolean().default(true),
     siteUrl: z.string()
       .regex(/^https:\/\/\S+[^/]$/, 'siteUrl must start with https:// and have no trailing slash'),
     lang: z.string().regex(/^[a-z]{2}$/, 'Use a two-letter language code, for example "en"').default('en'),
@@ -56,6 +58,7 @@ export const siteSchema = z.object({
   }).strict(),
   profile: z.object({
     name: text(60),
+    roleLabel: optionalText(60),
     headline: text(80),
     availability: text(60),
     location: optionalText(40),

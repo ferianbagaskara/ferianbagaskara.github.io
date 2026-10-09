@@ -31,10 +31,10 @@ try {
   assert.ok(assetPrivacyProblems(root, { restrictedAssetSet: new Map([[restrictedHash, 'historical OG']]) }).some((p) => p.includes('historical OG')));
   fs.unlinkSync(path.join(root, 'renamed.bin'));
   const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
-  fs.copyFileSync(path.join(publicDir, 'og-image.png'), path.join(root, 'renamed-preview.bin'));
+  fs.copyFileSync(path.join(publicDir, 'og-image.png'), path.join(root, 'renamed-draft-preview.bin'));
   assert.deepEqual(assetPrivacyProblems(root), []);
-  assert.ok(assetPrivacyProblems(root, { publicMode: true }).some((p) => p.includes('renamed-preview.bin')));
-  fs.unlinkSync(path.join(root, 'renamed-preview.bin'));
+  assert.ok(assetPrivacyProblems(root, { publicMode: true }).some((p) => p.includes('renamed-draft-preview.bin')));
+  fs.unlinkSync(path.join(root, 'renamed-draft-preview.bin'));
   assert.deepEqual(assetPrivacyProblems(publicDir), []);
   fs.writeFileSync(path.join(root, 'portrait.webp'), 'portrait fixture');
   const portraitHash = createHash('sha256').update('portrait fixture').digest('hex');

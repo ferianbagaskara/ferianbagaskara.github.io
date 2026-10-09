@@ -57,16 +57,55 @@
       }
     }
   }
-  // Mobile menu: Esc, link click and outside click close it; focus returns to the toggle.
-  const tog = document.querySelector('.menu-btn'), menu = document.getElementById('mobile-menu');
-  if (!tog || !menu) return;
-  const setOpen = (open, refocus) => {
-    menu.hidden = !open; tog.setAttribute('aria-expanded', String(open));
-    tog.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    if (open) menu.querySelector('a').focus(); else if (refocus) tog.focus();
+  const disclosure = document.querySelector('.nav-disclosure');
+  const summary = disclosure?.querySelector('summary');
+  const header = document.querySelector('.site-head');
+  const mobile = matchMedia('(max-width: 767.98px)');
+  if (!disclosure || !summary || !header) return;
+  const setMode = () => { disclosure.open = !mobile.matches; };
+  setMode();
+  mobile.addEventListener('change', setMode);
+  const close = (refocus = false) => {
+    if (!mobile.matches) return;
+    disclosure.open = false;
+    if (refocus) summary.focus();
   };
-  tog.addEventListener('click', () => setOpen(menu.hidden, true));
-  menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false, false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false, true); });
-  document.addEventListener('click', (e) => { if (!menu.hidden && !menu.contains(e.target) && !tog.contains(e.target)) setOpen(false, false); });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobile.matches && disclosure.open) close(true);
+  });
+  document.addEventListener('click', (event) => {
+    if (!disclosure.contains(event.target)) close();
+  });
+  document.addEventListener('focusin', (event) => {
+    if (!disclosure.contains(event.target)) close();
+  });
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const sections = [...document.querySelectorAll('main > [id]:not(#main)')];
+  const activate = (id) => links.forEach(link => {
+    if (link.hash === `#${id}`) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    const target = link && document.getElementById(link.hash.slice(1));
+    if (!target) return;
+    close();
+    target.focus({ preventScroll: true });
+    activate(target.id);
+  });
+  const fromHash = () => {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target) { target.focus({ preventScroll: true }); activate(target.id); }
+  };
+  window.addEventListener('hashchange', fromHash);
+  const update = () => {
+    const height = header.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--header-offset', `${height + 16}px`);
+    const current = sections.filter(section => section.getBoundingClientRect().top <= height + 80).at(-1) || sections[0];
+    if (current) activate(current.id);
+  };
+  new ResizeObserver(update).observe(header);
+  window.addEventListener('scroll', update, { passive: true });
+  fromHash();
+  update();
 })();

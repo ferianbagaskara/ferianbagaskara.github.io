@@ -1,27 +1,17 @@
 ---
-import Icon from './Icon.astro';
 import type { Site } from '../lib/site';
-interface Props {
-  profile: Site['profile']; draft: boolean;
-  certifications: Site['certifications'];
-}
-const { profile, draft, certifications } = Astro.props;
-const featured = certifications.filter((cert) => cert.featured).slice(0, 4);
+interface Props { profile: Site['profile']; draft: boolean; certifications: Site['certifications'] }
+const { profile, draft } = Astro.props;
 ---
-<section id="hero" class="hero" aria-labelledby="hero-name">
+<section class="hero" aria-labelledby="hero-name">
   <div class="wrap">
-    <p class="overview-eyebrow">Overview</p>
-    <div class="overview-intro">
-      <div>
-        <h1 id="hero-name">{profile.name}</h1>
-        <p class="headline">{profile.headline}</p>
-      </div>
-    </div>
-    <div class="overview-meta">
-      <div class="overview-location"><Icon name="pin" size={31} /><div><p>{profile.location}</p><p>{profile.availability}</p></div></div>
-      <a class="overview-credentials" href="#certifications"><Icon name="shield" size={34} /><span>{featured.map((cert) => <span>{cert.short || cert.name}</span>)}<span class="credential-link-label">View credentials →</span></span></a>
-    </div>
-    <div class="overview-actions"><a class="overview-contact" href="#contact"><Icon name="mail" />Contact me</a>
+    <div class="hero-surface">
+      <p class="eyebrow">Overview</p>
+      <p class="role-label">{profile.roleLabel}</p>
+      <h1 id="hero-name">{profile.name}</h1>
+      <p class="headline">{profile.headline}</p>
+      <div class="ctas"><a class="btn btn-primary" href="#projects">View selected work</a><a class="btn btn-secondary" href="#contact">Contact me</a></div>
+      <div class="hero-meta"><p>{profile.location}</p><p>{profile.availability}</p></div>
       {draft && <p class="hero-draft-status">Draft — pending final review.</p>}
     </div>
   </div>

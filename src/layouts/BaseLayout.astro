@@ -8,8 +8,8 @@ import enhance from '../scripts/enhance.js?raw';
 import { absUrl } from '../lib/format';
 import { isPlaceholderSiteUrl } from '../lib/schema.mjs';
 import type { Site } from '../lib/site';
-interface Props { settings: Site['settings']; profile: Site['profile']; title?: string; forceNoindex?: boolean }
-const { settings, profile, title = `${profile.name} · ${profile.headline}`, forceNoindex = false } = Astro.props;
+interface Props { settings: Site['settings']; profile: Site['profile']; title?: string; description?: string; forceNoindex?: boolean }
+const { settings, profile, title = `${profile.name} · ${profile.headline}`, description = `${profile.name} is a Cloud Network Engineer working across on-premises infrastructure, AWS, and Google Cloud. Explore selected projects and experience.`, forceNoindex = false } = Astro.props;
 const noindex = forceNoindex || settings.noindex;
 const canonical = absUrl(settings.siteUrl, '/');
 const hasConfirmedSiteUrl = !isPlaceholderSiteUrl(settings.siteUrl);
@@ -24,6 +24,7 @@ const fontCss = `@font-face{font-family:"Inter Variable";font-style:normal;font-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
+    <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#ffffff" />
     <link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
@@ -31,9 +32,11 @@ const fontCss = `@font-face{font-family:"Inter Variable";font-style:normal;font-
     {!forceNoindex && hasConfirmedSiteUrl && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     {hasConfirmedSiteUrl && <meta property="og:url" content={canonical} />}
     {hasConfirmedOgImage && <>
       <meta property="og:image:alt" content={`${profile.name}, ${profile.headline}`} />
@@ -42,6 +45,10 @@ const fontCss = `@font-face{font-family:"Inter Variable";font-style:normal;font-
       <meta property="og:image:height" content="630" />
     </>}
     <meta name="twitter:card" content={hasConfirmedOgImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {hasConfirmedOgImage && <meta name="twitter:image" content={absUrl(settings.siteUrl, '/og-image.png')} />}
+    {hasConfirmedOgImage && <meta name="twitter:image:alt" content={`${profile.name} — ${profile.headline}`} />}
   </head>
   <body>
     <slot />

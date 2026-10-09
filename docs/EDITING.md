@@ -102,10 +102,13 @@ enables one ordinary verification link independently of date confirmation. Do
 not infer active credential status.
 
 A nonempty `profile.cvUrl` is retained for compatibility but is not rendered by
-the current UI. Draft status remains while `settings.noindex` is true, even when
-confirmed contact and badge data are present. Headings, subtitle, and body use
+the current UI. `settings.showDraftNotice` controls the visible review notice
+independently of `settings.noindex`; hiding the notice does not enable indexing.
+`profile.roleLabel` is a separate presentation label and does not replace the
+official Experience role. Headings, subtitle, and body use
 the self-hosted Inter family.
 Project `detailSummary` / `detailText` hold optional confirmed disclosure copy;
+omit them or use `""` when unknown. Do not use null or add invented details.
 `role`, `problem`, and `outcome` always remain visible.
 Experience/track periods are text; keep their confirmed wording. The current cloud track uses `2025-present` and the overall role uses `2022–present`.
 
@@ -130,6 +133,8 @@ Replace `[responsibility]` with confirmed text before uncommenting:
 - Keep `settings.noindex: true` during draft review. It requests no indexing;
   it does not control access to hosted files. Public mode still needs final data,
   reviewed assets, and a separate publication decision.
+- `settings.showDraftNotice` only controls the on-page draft notice. Keep indexing
+  unchanged when adjusting this display flag.
 - `settings.hidePlaceholders: true` hides empty optional links. It does not confirm
   missing content or make a draft ready for publication.
 - Keep `settings.siteUrl` as `https://<username>.github.io` until Ferian confirms it.
